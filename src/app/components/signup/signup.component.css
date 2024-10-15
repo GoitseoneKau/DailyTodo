@@ -1,0 +1,110 @@
+.signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+    width: 100%;
+}
+
+
+.slogan,.app-name{
+    text-align: center;
+}
+.app-name .app-name-suff{
+    color: rgb(2, 133, 177);
+}
+
+.signup-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 10px;
+    border: 1px solid  rgb(2, 133, 177);
+    max-width: 50%;
+    min-width: 320px;
+    height: 50%;
+    margin: 15% auto;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.form-group .greeting{
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+div.button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+div.button input[type="submit"]{
+    justify-content: center;
+    width: 50%;
+    height: 40px;
+    background-color:  rgb(2, 133, 177);
+    color: white;
+    border: none;
+}
+
+div.button input[type="submit"]:hover{
+    background-color:  rgb(255, 255, 255);
+    color:  rgb(2, 133, 177);
+    border: 1px solid  rgb(2, 133, 177);
+}
+
+div.button input[type="submit"]:active{
+    background-color:  rgb(0, 75, 103);
+    color:  rgb(255, 255, 255);
+    border: 2px inset  rgb(255, 255, 255);
+}
+
+div.button input[type="submit"]:disabled {
+    background-color:  rgba(2, 133, 177, 0.739);
+    color: rgba(16, 16, 16, 0.3);
+    border-color: rgba(118, 118, 118, 0.3);
+}
+
+
+.form-group label{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    height: 30px;
+}
+
+label input{
+    width: 70%;
+    height: 30px;
+    padding: 2px 3px;
+    border-radius: 1px;
+    border: 0.5px solid;
+}
+
+label input.ng-invalid{
+    border: 0.5px solid red;
+}
+
+label input.ng-valid{
+    border: 0.5px solid green;
+}
+
+
+.alert{
+    width: 100%;
+    color: red;
+}

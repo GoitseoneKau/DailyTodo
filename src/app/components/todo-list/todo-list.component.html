@@ -1,0 +1,120 @@
+<app-header></app-header>
+<div class="list" >
+  <div class="greetings">{{"Hello  there"}}</div>
+ <div class="filterGroup">
+  <div  class="group-input">
+    <label for="priority">Priority:</label>
+
+    <select name="priority" id="priority"   [(ngModel)]="search">
+      <option value="All" selected>All</option>
+      <option value="High">High</option>
+      <option value="Medium">Medium</option>
+      <option value="Low">Low</option>
+    </select>
+  </div>
+  <div class="group-input">
+    <label for="Status">Status:</label>
+
+    <select name="Status" id="Status" (ngModelChange)="updateSearch($event)"  [(ngModel)]="completeFilter">
+      <option value="All" selected>All</option>
+      <option [value]="true">complete</option>
+      <option [value]="false">Incomplete</option>
+    </select>
+  </div>
+  <div class="group-input">
+    <button class="btnAdd">add Todo</button>
+  </div>
+ </div>
+ <ng-container *ngIf="search=='All';else filter">
+  <div class="todo-list">
+    <h1>High Priority</h1>
+    <ng-container *ngFor="let todo of Todos">
+
+      <todo-item  *ngIf="todo.priorityColor=='Red'"
+
+      [todo]="todo"
+      (onCheck)="checkTodo(todo)"
+      (onDelete)="deleteTodo(todo)"
+      >
+      
+      </todo-item>
+    
+    </ng-container>
+ </div>
+
+  <div  class="todo-list" >
+      <h1>Medium Priority</h1>
+      <ng-container *ngFor="let todo of Todos">
+
+        <todo-item  *ngIf="todo.priorityColor=='Orange'"
+        [todo]="todo"
+        (onCheck)="checkTodo(todo)"
+      (onDelete)="deleteTodo(todo)">
+        
+        </todo-item>
+      
+      </ng-container>
+  </div>
+
+  <div  class="todo-list"  >
+      <h1>Low Priority</h1>
+      <ng-container *ngFor="let todo of Todos">
+
+        <todo-item  *ngIf="todo.priorityColor=='Yellow'"
+        [todo]="todo"
+        (onCheck)="checkTodo(todo)"
+        (onDelete)="deleteTodo(todo)">
+        
+        </todo-item>
+      
+      </ng-container>
+  </div>
+ </ng-container>
+
+   <ng-template #filter>
+    <div class="todo-list" *ngIf="search=='High'">
+      <h1>High Priority</h1>
+      <ng-container *ngFor="let todo of Todos">
+  
+        <todo-item  *ngIf="todo.priorityColor=='Red'"
+
+        [todo]="todo"
+        (onCheck)="checkTodo(todo)"
+        (onDelete)="deleteTodo(todo)"
+        >
+        
+        </todo-item>
+      
+      </ng-container>
+   </div>
+
+    <div  class="todo-list"  *ngIf="search=='Medium'">
+        <h1>Medium Priority</h1>
+        <ng-container *ngFor="let todo of Todos">
+  
+          <todo-item  *ngIf="todo.priorityColor=='Orange'"
+          [todo]="todo"
+          (onCheck)="checkTodo(todo)"
+        (onDelete)="deleteTodo(todo)">
+          
+          </todo-item>
+        
+        </ng-container>
+    </div>
+
+    <div  class="todo-list"  *ngIf="search=='Low'">
+        <h1>Low Priority</h1>
+        <ng-container *ngFor="let todo of Todos">
+  
+          <todo-item  *ngIf="todo.priorityColor=='Yellow'"
+          [todo]="todo"
+          (onCheck)="checkTodo(todo)"
+          (onDelete)="deleteTodo(todo)">
+          
+          </todo-item>
+        
+        </ng-container>
+    </div>
+   </ng-template>
+
+</div>

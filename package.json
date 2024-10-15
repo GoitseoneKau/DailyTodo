@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:todoApp": "node dist/todo-app/server/server.mjs"
+    "serve:ssr:todoApp": "node dist/todo-app/server/server.mjs",
+    "todoServer": "json-server --watch src/assets/todos.json --port 5000",
+    "userServer": "json-server --watch src/assets/users.json --port 5001"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +23,9 @@
     "@angular/platform-server": "^18.1.0",
     "@angular/router": "^18.1.0",
     "@angular/ssr": "^18.1.2",
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "express": "^4.18.2",
+    "json-server": "^1.0.0-beta.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

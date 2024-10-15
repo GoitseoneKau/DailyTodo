@@ -1,0 +1,124 @@
+<div class="signup">
+    <div class="form-group">
+        <h1 class="app-name">Daily <span class="app-name-suff">Todo</span><span><i class="fa-solid fa-pen-fancy"></i></span></h1>
+        <p class="slogan">Give your daily tasks order.</p>
+    </div>
+    <form [formGroup]="signupForm"  (ngSubmit)="login()" class="signup-form" >
+        <div class="form-group">
+            <h2 class="greeting">Sign Up</h2>
+        </div>
+        <div class="form-group">
+            <label for="name">name :
+            <input  [class.ng-invalid]="signupForm.get('name')?.touched" 
+                    type="text" id="name" formControlName="name" 
+                    placeholder="Billy">
+            </label>
+                <div class="alert" *ngIf="signupForm.get('name')?.touched && signupForm.get('name')?.invalid">
+                    <div *ngIf="signupForm.get('name')?.errors?.['required'] ">
+                        <small><b>name is required</b></small>
+                    </div>
+                    <div *ngIf="signupForm.get('name')?.errors?.['pattern'] ">
+                       <small><b> enter valid name</b></small>
+                    </div>
+                    
+                </div>
+            
+            </div>
+
+        <div class="form-group">
+            <label for="lastname">Last name :
+            <input  [class.ng-invalid]="signupForm.get('Last name')?.touched" 
+                    type="text" id="lastname" formControlName="lastname" 
+                    placeholder="Jean">
+            </label>
+                <div class="alert" *ngIf="signupForm.get('lastname')?.touched && signupForm.get('lastname')?.invalid">
+                    <div *ngIf="signupForm.get('lastname')?.errors?.['required'] ">
+                        <small><b>Last name is required</b></small>
+                    </div>
+                    <div *ngIf="signupForm.get('lastname')?.errors?.['pattern'] ">
+                       <small><b> enter valid Last name</b></small>
+                    </div>
+                    
+                </div>
+            
+        </div>
+
+
+        <div class="form-group">
+            <label for="email">Email :
+            <input  [class.ng-invalid]="signupForm.get('email')?.touched" 
+                    type="email" id="email" formControlName="email" 
+                    placeholder="example@domain.com">
+            </label>
+                <div class="alert" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+                    <div *ngIf="signupForm.get('email')?.errors?.['required'] ">
+                        <small><b>email is required</b></small>
+                    </div>
+                    <div *ngIf="signupForm.get('email')?.errors?.['pattern'] ">
+                       <small><b> enter valid email</b></small>
+                    </div>
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-group">
+            <label for="password">Password :
+            <input  [class.ng-invalid]="signupForm.get('password')?.touched"
+                    type="password" id="password"  name="password"
+                    formControlName="password" 
+            >
+        </label>
+            <div class="alert" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+                <div *ngIf="signupForm.get('password')?.errors?.['required'] ">
+                  <small><b>  password is required</b></small>
+                </div>
+                <div *ngIf="signupForm.get('password')?.errors?.['pattern'] ">
+                   <small>
+                        <b> Enter valid password, 
+                        <br>should atleast have 1 UpperCase letter,1 Number and 
+                        1 special character 
+                        ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] </b>
+                    </small>
+                </div>
+                <div *ngIf="signupForm.get('password')?.errors?.['minlength'] ">
+                    <small>
+                        <b>password must be atleast 6 characters and at most 15 chaacters</b>
+                    </small>  
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="vpassword">Verify Password :
+            <input  [class.ng-invalid]="signupForm.get('vpassword')?.touched"
+                    type="password" id="vpassword"  name="vpassword"
+                    formControlName="vpassword" 
+            >
+        </label>
+            <div class="alert" *ngIf="signupForm.get('vpassword')?.touched && signupForm.get('vpassword')?.invalid">
+                <div *ngIf="signupForm.get('vpassword')?.errors?.['required'] ">
+                  <small><b>  vpassword is required</b></small>
+                </div>
+                <div *ngIf="signupForm.get('vpassword')?.errors?.['pattern'] ">
+                   <small>
+                        <b> Enter valid vpassword, 
+                        <br>should atleast have 1 UpperCase letter,1 Number and 
+                        1 special character 
+                        ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] </b>
+                    </small>
+                </div>
+                <div *ngIf="signupForm.get('vpassword')?.errors?.['minlength'] ">
+                    <small>
+                        <b>password must be atleast 6 characters and at most 15 chaacters</b>
+                    </small>  
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="button">
+            <input [disabled]="!signupForm.valid" type="submit" id="submit" value="login">
+        </div>
+    </form>
+</div>
+ 

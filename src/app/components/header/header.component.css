@@ -1,0 +1,33 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    padding: 5px;
+}
+
+.btnOut{
+    background-color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btnOut:hover{
+    background-color: black;
+    color: white;
+
+}
+
+.btnOut:active{
+    background-color: rgba(37, 36, 36, 0.871);
+    color: white;
+    border: 1px groove white;
+}
+
+.Logo{
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+}

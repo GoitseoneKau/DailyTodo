@@ -1,0 +1,59 @@
+{
+  "users":[
+    {
+      "id": 1,
+      "firstName": "Emily",
+      "lastName": "Johnson",
+      "gender": "female",
+      "email": "emily.johnson@x.dummyjson.com",
+      "phone": "+81 965-431-3024",
+      "username": "emilys",
+      "password": "emilySpass96*",
+      "userId": 14001
+    },
+    {
+      "id": 2,
+      "firstName": "Michael",
+      "lastName": "Williams",
+      "gender": "male",
+      "email": "michael.williams@x.dummyjson.com",
+      "phone": "+49 258-627-6644",
+      "username": "michaelw",
+      "password": "Michael.wpass8",
+      "userId": 14002
+    },
+    {
+      "id": 3,
+      "firstName": "Sophia",
+      "lastName": "Brown",
+      "gender": "female",
+      "email": "sophia.brown@x.dummyjson.com",
+      "phone": "+81 210-652-2785",
+      "username": "sophiab",
+      "password": "$Sophiabpass5",
+      "userId": 14003
+    },
+    {
+      "id": 4,
+      "firstName": "James",
+      "lastName": "Davis",
+      "gender": "male",
+      "email": "james.davis@x.dummyjson.com",
+      "phone": "+49 614-958-9364",
+      "username": "jamesd",
+      "password": "Jamesd@pass23",
+     "userId": 14004
+    },
+    {
+      "id": 5,
+      "firstName": "Emma",
+      "lastName": "Miller",
+      "gender": "female",
+      "email": "emma.miller@x.dummyjson.com",
+      "phone": "+91 759-776-1614",
+      "username": "emmaj",
+      "password": "emmajPass3.",
+      "userId": 14005
+    }
+  ]
+}

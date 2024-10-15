@@ -1,0 +1,29 @@
+<div class="todo-item" [ngStyle]="{'border-color':todo.priorityColor}">
+
+    <div class="priority" [ngStyle]="{'background-color':todo.priorityColor}">
+        <p>{{todo.priority}}</p>
+    </div>
+
+    <div class="todo-text" >
+        <p [ngClass]="{strikethrough:todo.completed}">{{todo.todo}}</p>
+        <div class="dateTime">
+            <p>Time: {{todo.dueDate|date:'shortTime'}} </p>
+            <p>  Due: {{todo.dueDate|date }}</p>
+        </div>
+    </div>
+
+
+    <div class="completedCheckbox">
+        <label for="completed"></label>
+        <input type="checkbox" 
+        title="completed" name="completed"  (change)="onCheckTodo(todo)"
+        id="completed" [checked]="todo.completed">
+    </div>
+
+   <div class="closingButton">
+        <span class="btnClose" (click)="onDeleteTodo(todo)" >
+            <i class="fa-solid fa-xmark fa-lg" ></i>
+        </span>
+    </div>
+ 
+</div>

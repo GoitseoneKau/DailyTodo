@@ -1,0 +1,94 @@
+{
+  "todos": [
+    {
+      "id": "1",
+      "todo": "Do something nice for someone you care about",
+      "priority": "High",
+      "priorityColor": "Red",
+      "dueDate": "2024-10-20T14:00",
+      "completed": false,
+      "userId": 14001
+    },
+    {
+      "id": "2",
+      "todo": "Memorize a poem",
+      "priority": "Medium",
+      "priorityColor": "Orange",
+      "dueDate": "2024-10-01T14:00+01:00",
+      "completed": true,
+      "userId": 14002
+    },
+    {
+      "id": "3",
+      "todo": "Watch a classic movie",
+      "priority": "Low",
+      "priorityColor": "Yellow",
+      "dueDate": "2024-10-05T14:00+01:00",
+      "completed": true,
+      "userId": 14001
+    },
+    {
+      "id": "4",
+      "todo": "Watch a documentary",
+      "priority": "High",
+      "priorityColor": "Red",
+      "dueDate": "2024-10-26T14:00+01:00",
+      "completed": false,
+      "userId": 14003
+    },
+    {
+      "id": "5",
+      "todo": "Invest In Crypto",
+      "priority": "Medium",
+      "priorityColor": "Orange",
+      "dueDate": "2024-10-26T14:00+01:00",
+      "completed": false,
+      "userId": 14003
+    },
+    {
+      "id": "6",
+      "todo": "Contribute code or a monetary donation to an open-source software project",
+      "priority": "High",
+      "priorityColor": "Red",
+      "dueDate": "3024-10-16T14:00+01:00",
+      "completed": false,
+      "userId": 14001
+    },
+    {
+      "id": "7",
+      "todo": "Solve a Rubik's cube",
+      "priority": "High",
+      "priorityColor": "Red",
+      "dueDate": "2024-10-20T14:00+01:00",
+      "completed": true,
+      "userId": 14002
+    },
+    {
+      "id": "8",
+      "todo": "Bake pastries for yourself and neighbor",
+      "priority": "Low",
+      "priorityColor": "Yellow",
+      "dueDate": "2024-10-20T14:00+01:00",
+      "completed": true,
+      "userId": 14001
+    },
+    {
+      "id": "9",
+      "todo": "Go see a Broadway production",
+      "priority": "Low",
+      "priorityColor": "Yellow",
+      "dueDate": "2024-10-20T14:00+01:00",
+      "completed": false,
+      "userId": 14003
+    },
+    {
+      "id": "10",
+      "todo": "Write a thank you letter to an influential person in your life",
+      "priority": "High",
+      "priorityColor": "Red",
+      "dueDate": "2024-10-20T14:00+01:00",
+      "completed": true,
+      "userId": 14002
+    }
+  ]
+}
