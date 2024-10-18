@@ -37,15 +37,6 @@
       "userId": 14003
     },
     {
-      "id": "6",
-      "todo": "Invest In Crypto",
-      "priority": "Medium",
-      "priorityColor": "Orange",
-      "dueDate": "2024-10-26T14:00+01:00",
-      "completed": false,
-      "userId": 14006
-    },
-    {
       "id": "7",
       "todo": "Solve a Rubik's cube",
       "priority": "High",
@@ -349,6 +340,15 @@
       "dueDate": "2024-10-25T19:30",
       "userId": 14001,
       "priorityColor": "#eded15",
+      "completed": false
+    },
+    {
+      "id": "42",
+      "todo": "drink with marci",
+      "priority": "Medium",
+      "dueDate": "2024-10-19T20:45",
+      "userId": 14006,
+      "priorityColor": "Orange",
       "completed": false
     }
   ]
