@@ -24,7 +24,7 @@
       "lastName": "Brown",
       "email": "sophia.brown@x.dummyjson.com",
       "phone": "010-652-2785",
-      "password": "$Sophiabpass5",
+      "password": "Sophiabpass5$",
       "userId": "14003"
     },
     {
@@ -55,10 +55,10 @@
       "userId": "14006"
     },
     {
-      "id": "8",
-      "firstName": "Goitseone",
-      "lastName": "Kau",
-      "email": "goitsek23@gmail.com",
+      "id": "7",
+      "firstName": "Ben",
+      "lastName": "10",
+      "email": "ben10k@gmail.com",
       "phone": "012 524 9849",
       "password": "asD12#",
       "userId": "14008"

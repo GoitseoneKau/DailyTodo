@@ -44,21 +44,23 @@ todoPriority:any
   }
 
   ngOnInit(){
-    this.isLoggedIn = this.loginService.isLoggedIn()//check if user is logged in
-    const Id = this.activatedRoute.snapshot.paramMap.get('uid')//get user id
-    this.getUser(Id)//get user
-    this.checkEmptyTodosOnPage(this.Todos)//check and update empty todos
+    this.isLoggedIn = this.loginService.isLoggedIn()
+    const Id = this.activatedRoute.snapshot.paramMap.get('uid')
+    this.getUser(Id)
+    const todos = this.todos.getTodos().subscribe(data=>{
+      this.Todos=data.filter(d=>d.userId===+this.userId)
+      this.checkEmptyTodosOnPage(this.Todos)
+      this.updateStatus(this.completeFilter)
+    })
+    this.checkEmptyTodosOnPage(this.Todos)
   }
 
   ngOnDestroy(){
     this.todos.getTodos().subscribe().unsubscribe()
   }
 
-
-  //after component loads 
-  ngAfterViewInit(){
+  ngAfterViewInit(){//after component loads 
     
-    //subscribe to filtered todo acoording to user
    const todos = this.todos.getTodos().subscribe(data=>{
     this.Todos=data.filter(d=>d.userId===+this.userId)
     this.checkEmptyTodosOnPage(this.Todos)
@@ -130,21 +132,27 @@ todoPriority:any
   updateStatus(e:any){
 
     this.todoIsComplete = e
-
+    this.isHighZero= false
+    this.isMedZero = false
+    this.isLowZero=false
+    
     if(this.todoIsComplete==="All"){//show all todos
-     const all = this.todos.getTodos().subscribe(data=> this.Todos=data.filter(d=>d.userId===+this.userId))
+      const all = this.todos.getTodos().subscribe(data=>{ 
+        this.Todos=data.filter(d=>d.userId===+this.userId)
+        //update empty todos
+        this.checkEmptyTodosOnPage(this.Todos)
+      })
 
      //unsubscribe to todo service when done using
      this.destroyRef.onDestroy(()=>all.unsubscribe())
 
-     //update empty todos
-      this.checkEmptyTodosOnPage(this.Todos)
+    
     }else{
-     const filtered =  this.todos.getTodos().subscribe(data=>{
-        this.Todos=data.filter((d)=>d.completed === booleanAttribute(this.todoIsComplete)&&d.userId===+this.userId)
-       
-      //update empty todos
-        this.checkEmptyTodosOnPage(this.Todos)
+      const filtered =  this.todos.getTodos().subscribe(data=>{
+          this.Todos=data.filter((d)=>d.completed === booleanAttribute(this.todoIsComplete)&&d.userId===+this.userId)
+        
+          //update empty todos
+          this.checkEmptyTodosOnPage(this.Todos)
       })
        //unsubscribe to todo service when done using
        this.destroyRef.onDestroy(()=>filtered.unsubscribe())
@@ -155,19 +163,25 @@ todoPriority:any
   //update page according to todo priorities
   updatePriority(e:any){
     this.todoPriority = e
+    this.isHighZero= false
+    this.isMedZero = false
+    this.isLowZero=false
     
     if(this.todoPriority==="All"){//set page to show all todos of various priority
 
       //get all todos of the user
-     const all = this.todos.getTodos().subscribe(data=> this.Todos=data.filter(d=>d.userId===+this.userId))
+     const all = this.todos.getTodos().subscribe(data=> {
+        this.Todos=data.filter(d=>d.userId===+this.userId)
+        ///update todos that have status set
+        this.updateStatus(this.todoIsComplete)
+        //update empty todos
+        this.checkEmptyTodosOnPage(this.Todos)
+    })
 
      //unsubscribe
      this.destroyRef.onDestroy(()=>all.unsubscribe())
 
-     ///update todos that have status set
-      this.updateStatus(this.todoIsComplete)
-      //update empty todos
-      this.checkEmptyTodosOnPage(this.Todos)
+     
     }else{
        //filter todos according to priority
      const filtered =  this.todos.getTodos().subscribe(data=>{

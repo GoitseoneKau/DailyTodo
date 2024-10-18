@@ -105,7 +105,7 @@ userExistMessage:string=""//empty message for user not existing
   }
 
   checkUserExists(u:User):boolean{//function to check if user exists
-    if(this.Users.find((user)=>user==u)){
+    if(this.Users.find((user)=>user.email==u.email)){
       return true
     }
     return false
