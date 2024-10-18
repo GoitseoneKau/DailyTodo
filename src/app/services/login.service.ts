@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { User } from '../types/user';
 import { UsersService } from './users.service';
-import test from 'node:test';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,33 +11,43 @@ import test from 'node:test';
 export class LoginService {
 
   public user:User | undefined |null
-
+  private readonly platformId = inject(PLATFORM_ID);
   constructor(private userService:UsersService) { }
 
   checkStorage(){
-    const userData = sessionStorage.getItem("user")
-    if(userData){
-      this.user = JSON.parse(userData)
-    }else{
-      this.user = null
+
+    if(isPlatformBrowser(this.platformId)){ 
+      const userData = sessionStorage.getItem("user")
+      if(userData){
+        this.user = JSON.parse(userData)
+      }else{
+        this.user = null
+      }
     }
+    
   }
 
   
 
   login(user:User){
+    if(isPlatformBrowser(this.platformId)){ 
       sessionStorage.setItem("user",JSON.stringify(user))
       this.checkStorage()
+    }
   }
 
   isLoggedIn(){
-    this.checkStorage()
+    if(isPlatformBrowser(this.platformId)){ 
+      this.checkStorage()
+    }
     return this.user !==null
   }
 
   logout(){
-    if(!this.isLoggedIn()){return}
-    sessionStorage.clear()
-    this.checkStorage()
+    if(isPlatformBrowser(this.platformId)){ 
+      if(!this.isLoggedIn()){return}
+      sessionStorage.clear()
+      this.checkStorage()
+    }
   }
 }
