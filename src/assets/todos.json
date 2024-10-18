@@ -2,12 +2,12 @@
   "todos": [
     {
       "id": "1",
-      "todo": "Do something nice for someone you care about",
-      "priority": "High",
-      "priorityColor": "Red",
-      "dueDate": "2024-10-20T14:00",
+      "todo": "Memorize a poem",
+      "priority": "Medium",
+      "priorityColor": "Orange",
+      "dueDate": "2024-10-01T14:00+01:00",
       "completed": false,
-      "userId": 14001
+      "userId": 14002
     },
     {
       "id": "2",
@@ -15,26 +15,26 @@
       "priority": "Medium",
       "priorityColor": "Orange",
       "dueDate": "2024-10-01T14:00+01:00",
-      "completed": true,
-      "userId": 14002
+      "completed": false,
+      "userId": 14006
     },
     {
       "id": "3",
       "todo": "Watch a classic movie",
       "priority": "Low",
-      "priorityColor": "Yellow",
+      "priorityColor": "#eded15",
       "dueDate": "2024-10-05T14:00+01:00",
-      "completed": true,
-      "userId": 14001
+      "completed": false,
+      "userId": 14006
     },
     {
       "id": "4",
-      "todo": "Watch a documentary",
-      "priority": "High",
-      "priorityColor": "Red",
-      "dueDate": "2024-10-26T14:00+01:00",
-      "completed": false,
-      "userId": 14003
+      "todo": "Watch a classic movie",
+      "priority": "Low",
+      "priorityColor": "#eded15",
+      "dueDate": "2024-10-05T14:00+01:00",
+      "completed": true,
+      "userId": 14001
     },
     {
       "id": "5",
@@ -47,37 +47,37 @@
     },
     {
       "id": "6",
-      "todo": "Contribute code or a monetary donation to an open-source software project",
-      "priority": "High",
-      "priorityColor": "Red",
-      "dueDate": "3024-10-16T14:00+01:00",
+      "todo": "Invest In Crypto",
+      "priority": "Medium",
+      "priorityColor": "Orange",
+      "dueDate": "2024-10-26T14:00+01:00",
       "completed": false,
-      "userId": 14001
+      "userId": 14006
     },
     {
       "id": "7",
       "todo": "Solve a Rubik's cube",
       "priority": "High",
-      "priorityColor": "Red",
+      "priorityColor": "#db0d0d",
       "dueDate": "2024-10-20T14:00+01:00",
       "completed": true,
       "userId": 14002
     },
     {
       "id": "8",
-      "todo": "Bake pastries for yourself and neighbor",
-      "priority": "Low",
-      "priorityColor": "Yellow",
+      "todo": "Solve a Rubik's cube",
+      "priority": "High",
+      "priorityColor": "#db0d0d",
       "dueDate": "2024-10-20T14:00+01:00",
       "completed": true,
-      "userId": 14001
+      "userId": 14006
     },
     {
       "id": "9",
       "todo": "Go see a Broadway production",
       "priority": "Low",
-      "priorityColor": "Yellow",
-      "dueDate": "2024-10-20T14:00+01:00",
+      "priorityColor": "#eded15",
+      "dueDate": "2024-10-10T14:00+01:00",
       "completed": false,
       "userId": 14003
     },
@@ -85,10 +85,154 @@
       "id": "10",
       "todo": "Write a thank you letter to an influential person in your life",
       "priority": "High",
-      "priorityColor": "Red",
+      "priorityColor": "#db0d0d",
       "dueDate": "2024-10-20T14:00+01:00",
       "completed": true,
       "userId": 14002
+    },
+    {
+      "id": "11",
+      "todo": "Go see a Broadway production",
+      "priority": "Low",
+      "priorityColor": "#eded15",
+      "dueDate": "2024-10-10T14:00+01:00",
+      "completed": false,
+      "userId": 14006
+    },
+    {
+      "id": "12",
+      "todo": "Memorize a poem",
+      "priority": "Medium",
+      "priorityColor": "Orange",
+      "dueDate": "2024-10-01T14:00+01:00",
+      "completed": true,
+      "userId": 14002
+    },
+    {
+      "id": "13",
+      "todo": "Watch a classic movie",
+      "priority": "Low",
+      "priorityColor": "#eded15",
+      "dueDate": "2024-10-05T14:00+01:00",
+      "completed": true,
+      "userId": 14001
+    },
+    {
+      "id": "14",
+      "todo": "Invest In Crypto",
+      "priority": "Medium",
+      "priorityColor": "Orange",
+      "dueDate": "2024-10-26T14:00+01:00",
+      "completed": false,
+      "userId": 14003
+    },
+    {
+      "id": "15",
+      "todo": "Solve a Rubik's cube",
+      "priority": "High",
+      "priorityColor": "#db0d0d",
+      "dueDate": "2024-10-20T14:00+01:00",
+      "completed": false,
+      "userId": 14006
+    },
+    {
+      "id": "16",
+      "todo": "Go see a Broadway production",
+      "priority": "Low",
+      "priorityColor": "#eded15",
+      "dueDate": "2024-10-10T14:00+01:00",
+      "completed": false,
+      "userId": 14003
+    },
+    {
+      "id": "17",
+      "todo": "Write a thank you letter to an influential person in your life",
+      "priority": "High",
+      "priorityColor": "#db0d0d",
+      "dueDate": "2024-10-20T14:00+01:00",
+      "completed": false,
+      "userId": 14002
+    },
+    {
+      "id": "18",
+      "todo": "Go see a Broadway production",
+      "priority": "Low",
+      "priorityColor": "#eded15",
+      "dueDate": "2024-10-10T14:00+01:00",
+      "completed": false,
+      "userId": 14003
+    },
+    {
+      "id": "19",
+      "todo": "Read Lord of The Rings",
+      "priority": "High",
+      "priorityColor": "#db0d0d",
+      "dueDate": "2024-10-20T03:00",
+      "completed": false,
+      "userId": 14006
+    },
+    {
+      "id": "20",
+      "todo": "have drinks with friends @ chikos",
+      "priority": "Low",
+      "dueDate": "2024-10-18T20:00",
+      "userId": 14006,
+      "priorityColor": "#eded15",
+      "completed": false
+    },
+    {
+      "id": "21",
+      "todo": "Solve a Rubik's cube",
+      "priority": "Low",
+      "dueDate": "2024-10-17T22:28",
+      "userId": 14006,
+      "priorityColor": "#eded15",
+      "completed": true
+    },
+    {
+      "id": "22",
+      "todo": "Solve a Rubik's cube",
+      "priority": "Low",
+      "dueDate": "2024-10-18T11:47",
+      "userId": 14008,
+      "priorityColor": "#eded15",
+      "completed": false
+    },
+    {
+      "id": "23",
+      "todo": "have drinks with friends @ BlueRoom",
+      "priority": "Medium",
+      "dueDate": "2024-10-18T20:00",
+      "userId": 14008,
+      "priorityColor": "Orange",
+      "completed": false
+    },
+    {
+      "id": "24",
+      "todo": "Finish task from codeTribe",
+      "priority": "High",
+      "dueDate": "2024-10-17T22:00",
+      "userId": 14008,
+      "priorityColor": "#db0d0d",
+      "completed": false
+    },
+    {
+      "id": "25",
+      "todo": "write custom validators in code",
+      "priority": "High",
+      "dueDate": "2024-10-17T21:50",
+      "userId": 14008,
+      "priorityColor": "#db0d0d",
+      "completed": true
+    },
+    {
+      "id": "26",
+      "todo": "fix css in web",
+      "priority": "Medium",
+      "dueDate": "2024-10-18T06:33",
+      "userId": 14008,
+      "priorityColor": "Orange",
+      "completed": false
     }
   ]
 }

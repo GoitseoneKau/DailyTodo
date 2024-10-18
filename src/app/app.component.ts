@@ -8,22 +8,25 @@ import { UsersService } from './services/users.service';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 
 import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,JsonPipe,CommonModule,TodoListComponent,FooterComponent],
+  imports: [RouterOutlet,JsonPipe,CommonModule,TodoListComponent,FooterComponent,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'todoApp';
-  userList:User[]=[]
 
 
-  constructor(private todos:TodosService,private users:UsersService,private http:HttpClient){}
+
+  constructor(public loginService:LoginService,private http:HttpClient){}
 
   ngOnInit(){
-    this.users.getUsers().subscribe(data=>this.userList=data)
+  
+    console.log("am I logged in from app component",this.loginService.isLoggedIn())
   }
 }

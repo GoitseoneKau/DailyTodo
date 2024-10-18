@@ -14,6 +14,14 @@ private url:string = "http://localhost:5000/todos"
     return this.https.get<Todo[]>(this.url)
   }
 
+  getTodo(id:any):Observable<Todo>{
+    return this.https.get<Todo>(`${this.url}/${id}`)
+  }
+
+  postTodos(todo:Todo):Observable<Todo[]>{
+    return this.https.post<Todo[]>(this.url,todo)
+  }
+
   deleteTodo(todo:Todo):Observable<Todo>{
     return this.https.delete<Todo>(`${this.url}/${todo.id}`)
   }

@@ -1,5 +1,5 @@
 <div class="login">
-    <div class="form-group">
+    <div class="app-name-group">
         <h1 class="app-name">Daily <span class="app-name-suff">Todo</span><span><i class="fa-solid fa-pen-fancy"></i></span></h1>
         <p class="slogan">Give your daily tasks order.</p>
     </div>
@@ -15,10 +15,10 @@
             </label>
                 <div class="alert" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
                     <div *ngIf="loginForm.get('email')?.errors?.['required'] ">
-                        <small><b>email is required</b></small>
+                        <small>email is required</small>
                     </div>
                     <div *ngIf="loginForm.get('email')?.errors?.['pattern'] ">
-                       <small><b> enter valid email</b></small>
+                       <small>enter valid email</small>
                     </div>
                     
                 </div>
@@ -27,34 +27,40 @@
     
         <div class="form-group">
             <label for="password">Password :
-            <input  [class.ng-invalid]="loginForm.get('password')?.touched"
+                <input  [class.ng-invalid]="loginForm.get('password')?.touched"
                     type="password" id="password"  name="password"
-                    formControlName="password" 
-            >
-        </label>
+                    formControlName="password" >
+            </label>
             <div class="alert" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
                 <div *ngIf="loginForm.get('password')?.errors?.['required'] ">
-                  <small><b>  password is required</b></small>
+                  <small>  password is required</small>
                 </div>
-                <div *ngIf="loginForm.get('password')?.errors?.['pattern'] ">
+            </div>
+            <div class="alert" *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.invalid">
+                <div *ngIf="loginForm.get('password')?.errors?.['invalidPassword'] ">
                    <small>
-                        <b> Enter valid password, 
+                         Enter valid password, 
                         <br>should atleast have 1 UpperCase letter,1 Number and 
                         1 special character 
-                        ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] </b>
+                        ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] 
                     </small>
                 </div>
                 <div *ngIf="loginForm.get('password')?.errors?.['minlength'] ">
                     <small>
-                        <b>password must be atleast 6 characters and at most 15 chaacters</b>
+                        password must be atleast 6 characters and at most 15 chaacters
                     </small>  
                 </div>
             </div>
         </div>
-    
-    
+
+        <div *ngIf="!loggedIn" class="alert poppins-light ">{{message}}</div>
+
         <div class="button">
             <input [disabled]="!loginForm.valid" type="submit" id="submit" value="login">
+        </div>
+        <div class="button">
+            <p class="poppins-extralight">Not Registered? <br>Sign up at the click of a button</p>
+            <button type="button" (click)="backToSignUp()">Sign Up</button>
         </div>
     </form>
 </div>

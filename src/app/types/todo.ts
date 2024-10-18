@@ -1,9 +1,9 @@
 export interface Todo {
-  id:number,
-        todo:string,
-        priority:string,
-        priorityColor:string,
-        dueDate:Date,
-        completed:boolean,
-        userId:number
+  id:string,
+  todo:string,
+  priority:string,
+  priorityColor:string,
+  dueDate:Date,
+  completed:boolean,
+  userId:number
 }

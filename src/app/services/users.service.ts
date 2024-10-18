@@ -14,4 +14,20 @@ export class UsersService {
   getUsers():Observable<User[]>{
     return this.https.get<User[]>(this.url)
   }
+
+  getUser(id:any):Observable<User>{
+    return this.https.get<User>(`${this.url}/${id}`)
+  }
+
+  postUsers(user:User):Observable<User[]>{
+    return this.https.post<User[]>(this.url,user)
+  }
+
+  deleteUser(user:User):Observable<User>{
+    return this.https.delete<User>(`${this.url}/${user.id}`)
+  }
+
+  updateUser(user:User):Observable<User[]>{
+    return this.https.put<User[]>(`${this.url}/${user.id}`,user)
+  }
 }
