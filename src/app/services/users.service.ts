@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UsersService {
 
-  private url:string = "http://localhost:3001/api/users"
+  private url:string = "http://localhost:8001/api/users"
   constructor(private https:HttpClient) { }
 
   getUsers():Observable<User[]>{
