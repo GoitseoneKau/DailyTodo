@@ -73,7 +73,7 @@ export class EditTodoComponent {
       (todo) => {
         this.Todo = todo; //set todo to local variable of todo
 
-        this.editForm.setValue({
+        this.editForm.setValue({//set form values
           todo: this.Todo.todo,
           priority: this.Todo.priority,
           dueDate: this.dp.transform(this.Todo.dueDate, 'yyyy-MM-ddThh:mm'),
@@ -93,7 +93,7 @@ export class EditTodoComponent {
 
     const update = this.todoService.updateTodos(this.Todo).subscribe(); //post updated todo
 
-    this.location.back(); //redirect to todo list page
+    this.cancel(); //redirect to todo list page
   }
 
   setPriorityColor(priority: string): string {
@@ -114,6 +114,7 @@ export class EditTodoComponent {
   }
 
   cancel() {
-    this.location.back(); //redirect back without editing
+    const user = JSON.parse(sessionStorage.getItem("user")!)//get logged in user info
+    this.router.navigate([`/todos/${+user.id}`])//go back to todo list of user //redirect back without editing
   }
 }

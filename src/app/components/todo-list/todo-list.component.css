@@ -6,6 +6,10 @@
     margin: 10% auto;
 }
 
+.app-name{
+
+}
+
 .todo-list{
     display: flex;
     justify-content: center;

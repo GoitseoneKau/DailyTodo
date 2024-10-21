@@ -32,6 +32,7 @@ export class LoginService {
   login(user:User){
     if(isPlatformBrowser(this.platformId)){ 
       sessionStorage.setItem("user",JSON.stringify(user))
+      console.log(sessionStorage.getItem("user"))
       this.checkStorage()
     }
   }

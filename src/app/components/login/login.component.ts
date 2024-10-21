@@ -53,7 +53,8 @@ export class LoginComponent {
   
     if(this.checkUser(this.loginForm.value as User)){
       if(this.checkUserPassword(this.loginForm.value as User)){//if user is found via email and password,login
-        
+        const user = this.loginForm.value as User
+        user.id = this.testUser?.id
         this.loginService.login(this.loginForm.value as User)//login  through login service
         this.loggedIn =   this.loginService.isLoggedIn();//variable to store login truthy value
 

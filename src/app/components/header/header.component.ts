@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { User } from '../../types/user';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +11,14 @@ import { LoginService } from '../../services/login.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
   constructor(private router:Router,private loginService:LoginService){//inject services
 
+  }
+
+  goToList() {
+    const user = JSON.parse(sessionStorage.getItem("user")!)//get logged in user info
+    this.router.navigate([`/todos/${+user.id}`])//go back to todo list of user
   }
 
   logOut(){

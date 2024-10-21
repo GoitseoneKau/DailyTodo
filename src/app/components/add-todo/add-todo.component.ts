@@ -81,11 +81,12 @@ export class AddTodoComponent {
 
      const add =  this.todoService.postTodo(todoData).subscribe()//post new todo
     //  this.destroyRef.onDestroy(()=>add.unsubscribe())//unsuscribe when component is destroyed nd service not in use
-      this.location.back()//redirect to todos page
+      this.cancel()//redirect to todos page
       
     }
 
     cancel(){
-      this.location.back()//navigate back to toos page
+      const user = JSON.parse(sessionStorage.getItem("user")!)//get logged in user info
+    this.router.navigate([`/todos/${+user.id}`])//go back to todo list of user//navigate back to toos page
     }
 }
