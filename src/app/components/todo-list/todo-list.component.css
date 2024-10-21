@@ -7,7 +7,7 @@
 }
 
 .app-name{
-
+    font-size: 4rem;
 }
 
 .todo-list{
@@ -176,7 +176,11 @@ todo-item{
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen  and (max-width:450px) {
+    .app-name{
+        font-size: 2.5rem;
+    }
+
     .todo-list{
         margin: 0;
         width:100%
@@ -188,14 +192,14 @@ todo-item{
     }
 
     .greetings h4{
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 500;
         text-align: center;
         color:  rgba(1, 121, 161, 0.87)
     }
     
     .greetings h3{
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 600;
         text-align: center;
     }

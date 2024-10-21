@@ -7,7 +7,7 @@ import { Todo } from '../types/todo';
   providedIn: 'root'
 })
 export class TodosService {
-private url:string = "http://localhost:3001/todos"
+private url:string = "https://tsexpressrestapi.onrender.com/api/todos"
   constructor(private https:HttpClient) { }
 
   getTodos():Observable<Todo[]>{

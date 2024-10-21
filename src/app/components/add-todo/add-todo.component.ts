@@ -55,9 +55,6 @@ export class AddTodoComponent {
       // this.destroyRef.onDestroy(()=>getTodos.unsubscribe())//unsuscribe when component is detroyed
     }
 
-    getNextId(obj:any){
-      return (Math.max.apply(Math,obj.map((o: { id: number })=>o.id))+1);///get next id from array/object list
-    }
 
     setPriorityColor(priority:string):string{//set priority color according to priority text
       let color=""
@@ -75,7 +72,6 @@ export class AddTodoComponent {
       const todoData = this.addForm.value as Todo//store form ata User type format
       //insert extra info the form does not show automatically/dynamically
       todoData.userId = +this.userId
-      todoData.id = this.getNextId(this.todos)
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
 
