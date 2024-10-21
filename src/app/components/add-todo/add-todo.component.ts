@@ -52,7 +52,7 @@ export class AddTodoComponent {
     ngOnInit(){
       this.userId = this.activeRoute.snapshot.paramMap.get('uid')//get user unique id
       const getTodos = this.todoService.getTodos().subscribe((todos)=>this.todos = todos)//get todo
-      this.destroyRef.onDestroy(()=>getTodos.unsubscribe())//unsuscribe when component is detroyed
+      // this.destroyRef.onDestroy(()=>getTodos.unsubscribe())//unsuscribe when component is detroyed
     }
 
     getNextId(obj:any){
@@ -75,12 +75,12 @@ export class AddTodoComponent {
       const todoData = this.addForm.value as Todo//store form ata User type format
       //insert extra info the form does not show automatically/dynamically
       todoData.userId = +this.userId
-      todoData.id = this.getNextId(this.todos).toString()
+      todoData.id = this.getNextId(this.todos)
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
 
-     const add=  this.todoService.postTodos(todoData).subscribe()//post new todo
-     this.destroyRef.onDestroy(()=>add.unsubscribe())//unsuscribe when component is destroyed nd service not in use
+     const add =  this.todoService.postTodo(todoData).subscribe()//post new todo
+    //  this.destroyRef.onDestroy(()=>add.unsubscribe())//unsuscribe when component is destroyed nd service not in use
       this.location.back()//redirect to todos page
       
     }

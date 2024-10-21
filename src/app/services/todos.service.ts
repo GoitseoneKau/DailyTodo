@@ -7,18 +7,18 @@ import { Todo } from '../types/todo';
   providedIn: 'root'
 })
 export class TodosService {
-private url:string = "http://localhost:5000/todos"
+private url:string = "http://localhost:3001/api/todos"
   constructor(private https:HttpClient) { }
 
   getTodos():Observable<Todo[]>{
     return this.https.get<Todo[]>(this.url)
   }
 
-  getTodo(id:any):Observable<Todo>{
+  getTodo(id:number):Observable<Todo>{
     return this.https.get<Todo>(`${this.url}/${id}`)
   }
 
-  postTodos(todo:Todo):Observable<Todo[]>{
+  postTodo(todo:Todo):Observable<Todo[]>{
     return this.https.post<Todo[]>(this.url,todo)
   }
 

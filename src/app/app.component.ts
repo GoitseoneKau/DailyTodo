@@ -20,13 +20,12 @@ import { LoginService } from './services/login.service';
 })
 export class AppComponent {
   title = 'todoApp';
-
+  isLoggedIn =false
 
 
   constructor(public loginService:LoginService,private http:HttpClient){}
 
   ngOnInit(){
-  
-    console.log("am I logged in from app component",this.loginService.isLoggedIn())
+    this.isLoggedIn = this.loginService.isLoggedIn()
   }
 }

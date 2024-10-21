@@ -41,7 +41,8 @@ export class LoginComponent {
   }
 
   checkUser(user:User):User|undefined{//check if user exists by email
-    return  this.testUser = this.users.find(d=>d.email==user.email )
+    this.testUser = this.users.find(d=> d.email == user.email )
+    return  this.testUser
   }
 
   checkUserPassword(user:User):User|undefined{//check if user exists by password
@@ -49,7 +50,7 @@ export class LoginComponent {
   }
 
   login(){//login function
-    
+  
     if(this.checkUser(this.loginForm.value as User)){
       if(this.checkUserPassword(this.loginForm.value as User)){//if user is found via email and password,login
         

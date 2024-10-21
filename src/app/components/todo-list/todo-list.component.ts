@@ -45,7 +45,7 @@ todoPriority:any
 
   ngOnInit(){
     this.isLoggedIn = this.loginService.isLoggedIn()
-    const Id = this.activatedRoute.snapshot.paramMap.get('uid')
+    const Id = parseInt(this.activatedRoute.snapshot.paramMap.get('uid')!)
     this.getUser(Id)
     const todos = this.todos.getTodos().subscribe(data=>{
       this.Todos=data.filter(d=>d.userId===+this.userId)
@@ -56,7 +56,7 @@ todoPriority:any
   }
 
   ngOnDestroy(){
-    this.todos.getTodos().subscribe().unsubscribe()
+  
   }
 
   ngAfterViewInit(){//after component loads 
@@ -67,7 +67,7 @@ todoPriority:any
     this.updateStatus(this.completeFilter)
   })
 
-  this.destroyRef.onDestroy(()=>todos.unsubscribe())
+  // this.destroyRef.onDestroy(()=>todos.unsubscribe())
   }
 
   //get user according to userId
@@ -78,7 +78,6 @@ todoPriority:any
         this.userId =user.userId
       })
 
-      this.destroyRef.onDestroy(()=>user.unsubscribe())
     }
   }
 
@@ -95,7 +94,7 @@ todoPriority:any
     this.updateStatus(this.completeFilter)
     this.checkEmptyTodosOnPage(this.Todos)
 
-    this.destroyRef.onDestroy(()=>updateComplete.unsubscribe())
+   
   }
 
   deleteTodo(todo:Todo){//function to delete todo
@@ -106,7 +105,7 @@ todoPriority:any
     //delete todo
     const deleteTodo = delayDelete.subscribe(()=>this.Todos=this.Todos.filter(t=>t.id !== todo.id))
 
-    this.destroyRef.onDestroy(()=>deleteTodo.unsubscribe())
+
 
     this.checkEmptyTodosOnPage(this.Todos)
   }
@@ -143,8 +142,7 @@ todoPriority:any
         this.checkEmptyTodosOnPage(this.Todos)
       })
 
-     //unsubscribe to todo service when done using
-     this.destroyRef.onDestroy(()=>all.unsubscribe())
+
 
     
     }else{
@@ -154,8 +152,7 @@ todoPriority:any
           //update empty todos
           this.checkEmptyTodosOnPage(this.Todos)
       })
-       //unsubscribe to todo service when done using
-       this.destroyRef.onDestroy(()=>filtered.unsubscribe())
+      
     }
   }
 
@@ -179,7 +176,7 @@ todoPriority:any
     })
 
      //unsubscribe
-     this.destroyRef.onDestroy(()=>all.unsubscribe())
+    
 
      
     }else{
@@ -191,8 +188,7 @@ todoPriority:any
         this.checkEmptyTodosOnPage(this.Todos)
 
       })
-        //unsubscribe to aervice
-      this.destroyRef.onDestroy(()=>filtered.unsubscribe())
+ 
     }
   }
 
