@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:todoApp": "node dist/todo-app/server/server.mjs",
-    "todoServer": "json-server --watch src/assets/todos.json --port 5000",
-    "userServer": "json-server --watch src/assets/users.json --port 5001"
+    "todoServer": "json-server --watch src/assets/todos.json --port 8001",
+    "userServer": "json-server --watch src/assets/users.json --port 8002"
   },
   "private": true,
   "dependencies": {
