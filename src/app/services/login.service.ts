@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { User } from '../types/user';
-import { UsersService } from './users.service';
 import { isPlatformBrowser } from '@angular/common';
 
 
@@ -12,7 +10,7 @@ export class LoginService {
 
   public user:User | undefined |null
   private readonly platformId = inject(PLATFORM_ID);
-  constructor(private userService:UsersService) { }
+  constructor() { }
 
   checkStorage(){
 
@@ -32,7 +30,6 @@ export class LoginService {
   login(user:User){
     if(isPlatformBrowser(this.platformId)){ 
       sessionStorage.setItem("user",JSON.stringify(user))
-      console.log(sessionStorage.getItem("user"))
       this.checkStorage()
     }
   }

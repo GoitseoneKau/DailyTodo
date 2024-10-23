@@ -27,7 +27,7 @@ export class TodoComponent {
 
   constructor(private dp:DatePipe) { }//inject datePipe service
 
-  overDueCheck(todo:Todo){
+  overDueCheck(todo:Todo){//checks if todo was never completed and it is passed it's due date
     //transform date objects with datepipe service
     const now = this.dp.transform(this.today)
     const task = this.dp.transform(todo.dueDate)
@@ -43,7 +43,7 @@ export class TodoComponent {
   }
 
   onDeleteTodo(todo:Todo){
-     this.item.nativeElement.classList.add("animate__animated","animate__slideOutRight")
+     this.item.nativeElement.classList.add("animate__animated","animate__slideOutRight")//delete method emits, add class to slide out aanimation
      setTimeout(()=>{},1000)
     this.onDelete.emit(todo)
   }

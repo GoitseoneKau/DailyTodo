@@ -76,8 +76,10 @@ export class AddTodoComponent {
       todoData.completed = false
 
      const add =  this.todoService.postTodo(todoData).subscribe()//post new todo
+     
     //  this.destroyRef.onDestroy(()=>add.unsubscribe())//unsuscribe when component is destroyed nd service not in use
-      this.cancel()//redirect to todos page
+      
+    this.cancel()//redirect to todos page
       
     }
 
