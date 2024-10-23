@@ -21,19 +21,17 @@ import { delay } from 'rxjs';
 })
 export class TodoListComponent {
 //initialize variables
-  Todos:Todo[]=[]
-  search:string="All"
-  completeFilter:string="All"
-  isLoggedIn:boolean=false
-  todayDate = new Date();
-  user!:User
-  destroyRef = inject(DestroyRef)
-  userId:any
-  isHighZero:boolean = false
-  isMedZero:boolean = false
-  isLowZero:boolean=false
-  todoIsComplete:any
-todoPriority:any
+  Todos:Todo[]=[]//todos variable; empty
+  isLoggedIn:boolean=false//global variable to store loggedin boolean from login service
+  todayDate = new Date();//check today's date
+  user!:User//global variable to hold user's currently loggedin information
+  destroyRef = inject(DestroyRef)//inject a destroy  reference
+  userId:any//global variable to store logged in user's user_id
+  isHighZero:boolean = false//global varibale to boolean if high priority todos are zero
+  isMedZero:boolean = false//global varibale to boolean if Medium priority todos are zero
+  isLowZero:boolean=false//global varibale to boolean if Low priority todos are zero
+  todoSearchPriorityFilter:string="All"//two way bound variable for high,low or medium priority filter/select
+  todoCompletedFilter:string|boolean="All"//two way bound variable for completed status filter/select
 
   constructor(private todos:TodosService,
     private users:UsersService,
@@ -50,7 +48,8 @@ todoPriority:any
     const todos = this.todos.getTodos().subscribe(data=>{
       this.Todos=data.filter(d=>d.userId===+this.userId)
       this.checkEmptyTodosOnPage(this.Todos)
-      this.updateStatus(this.completeFilter)
+      this.updateCompletedStatus(this.todoCompletedFilter)
+      this.updatePriority(this.todoSearchPriorityFilter)
     })
     this.checkEmptyTodosOnPage(this.Todos)
   }
@@ -64,7 +63,8 @@ todoPriority:any
    const todos = this.todos.getTodos().subscribe(data=>{
     this.Todos=data.filter(d=>d.userId===+this.userId)
     this.checkEmptyTodosOnPage(this.Todos)
-    this.updateStatus(this.completeFilter)
+    this.updateCompletedStatus(this.todoCompletedFilter)
+    this.updatePriority(this.todoSearchPriorityFilter)
   })
 
   // this.destroyRef.onDestroy(()=>todos.unsubscribe())
@@ -91,7 +91,7 @@ todoPriority:any
     const updateComplete = this.todos.updateTodos(todo).subscribe()
     
     //update todos after completed check
-    this.updateStatus(this.completeFilter)
+    this.updateCompletedStatus(this.todoCompletedFilter)
     this.checkEmptyTodosOnPage(this.Todos)
 
    
@@ -128,26 +128,22 @@ todoPriority:any
 
 
   //filter todos according to status
-  updateStatus(e:any){
+  updateCompletedStatus(e:any){
 
-    this.todoIsComplete = e
+    this.todoCompletedFilter = e
     this.isHighZero= false
     this.isMedZero = false
     this.isLowZero=false
     
-    if(this.todoIsComplete==="All"){//show all todos
+    if(this.todoCompletedFilter==="All"){//show all todos
       const all = this.todos.getTodos().subscribe(data=>{ 
         this.Todos=data.filter(d=>d.userId===+this.userId)
         //update empty todos
         this.checkEmptyTodosOnPage(this.Todos)
       })
-
-
-
-    
     }else{
       const filtered =  this.todos.getTodos().subscribe(data=>{
-          this.Todos=data.filter((d)=>d.completed === booleanAttribute(this.todoIsComplete)&&d.userId===+this.userId)
+          this.Todos=data.filter((d)=>d.completed === booleanAttribute(this.todoCompletedFilter)&&d.userId===+this.userId)
         
           //update empty todos
           this.checkEmptyTodosOnPage(this.Todos)
@@ -159,18 +155,18 @@ todoPriority:any
 
   //update page according to todo priorities
   updatePriority(e:any){
-    this.todoPriority = e
+    this.todoSearchPriorityFilter = e
     this.isHighZero= false
     this.isMedZero = false
     this.isLowZero=false
     
-    if(this.todoPriority==="All"){//set page to show all todos of various priority
+    if(this.todoSearchPriorityFilter==="All"){//set page to show all todos of various priority
 
       //get all todos of the user
      const all = this.todos.getTodos().subscribe(data=> {
         this.Todos=data.filter(d=>d.userId===+this.userId)
         ///update todos that have status set
-        this.updateStatus(this.todoIsComplete)
+        this.updateCompletedStatus(this.todoCompletedFilter)
         //update empty todos
         this.checkEmptyTodosOnPage(this.Todos)
     })
@@ -182,9 +178,9 @@ todoPriority:any
     }else{
        //filter todos according to priority
      const filtered =  this.todos.getTodos().subscribe(data=>{
-        this.Todos=data.filter((d)=>d.priority ===this.todoPriority&&d.userId===+this.userId)
+        this.Todos=data.filter((d)=>d.priority ===this.todoSearchPriorityFilter&&d.userId===+this.userId)
         //update todos
-        this.updateStatus(this.todoIsComplete)
+        this.updateCompletedStatus(this.todoCompletedFilter)
         this.checkEmptyTodosOnPage(this.Todos)
 
       })
