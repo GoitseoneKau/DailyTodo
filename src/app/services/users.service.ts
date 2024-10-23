@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class UsersService {
 
   private url:string = "https://tsexpressrestapi.onrender.com/api/users"
+  
   constructor(private https:HttpClient) { }
 
   getUsers():Observable<User[]>{

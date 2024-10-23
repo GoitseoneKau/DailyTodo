@@ -1,5 +1,5 @@
 import { UsersService } from './../../services/users.service';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,10 +7,11 @@ import { LoginService } from '../../services/login.service';
 import { User } from '../../types/user';
 import { PasswordValidator } from '../../customValidators/password-validator';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,NgIf],
+  imports: [ReactiveFormsModule,NgIf,JsonPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -54,7 +55,7 @@ export class LoginComponent {
     if(this.checkUser(this.loginForm.value as User)){
       if(this.checkUserPassword(this.loginForm.value as User)){//if user is found via email and password,login
         const user = this.loginForm.value as User
-        user.id = this.testUser?.id
+        user.id = this.testUser!.id
         this.loginService.login(this.loginForm.value as User)//login  through login service
         this.loggedIn =   this.loginService.isLoggedIn();//variable to store login truthy value
 
