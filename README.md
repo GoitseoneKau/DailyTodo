@@ -3,12 +3,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
 
-
 ![Login Screen](/src/assets/images/logo.PNG)
 
-<!-- <h1 align="center" style="font-family:Poppins;font-size:4em"> Daily <span style="color:rgb(52, 133, 177)">Todo</span><span><svg xmlns="http://www.w3.org/2000/svg" height="50" width="50" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path d="M373.5 27.1C388.5 9.9 410.2 0 433 0c43.6 0 79 35.4 79 79c0 22.8-9.9 44.6-27.1 59.6L277.7 319l-10.3-10.3-64-64L193 234.3 373.5 27.1zM170.3 256.9l10.4 10.4 64 64 10.4 10.4-19.2 83.4c-3.9 17.1-16.9 30.7-33.8 35.4L24.3 510.3l95.4-95.4c2.6 .7 5.4 1.1 8.3 1.1c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32c0 2.9 .4 5.6 1.1 8.3L1.7 487.6 51.5 310c4.7-16.9 18.3-29.9 35.4-33.8l83.4-19.2z"/></svg></span> 
-</h1> -->
-<!-- <h4 align="center" style="font-family:Poppins;font-size:1.2em;margin-top:20px">Give your daily tasks order.</h4> -->
+<h4 align="center" style="font-family:Poppins;font-size:1.2em;margin-top:20px">Give your daily tasks order.</h4>
 <p align="center">A simple project highlighting my core skills as Angular developer. It is a todo app with basic functionality and some complex features</p>
 
 
@@ -16,7 +13,9 @@
 
 * [Introduction](#introduction)
 
-* [Cloning](#cloning-and-running-the-app)
+* [Cloning the app](#cloning-and-running-the-app)
+  * [Dummy User](#dummy-user-for-test)
+  * [CMD Line](#cmd-line)
 
 * [Features](#features)
 
@@ -37,8 +36,10 @@ The main branch uses an online server to display real life RESTful CRUD operatio
 
 
 
-### Cloning and running the app
+## Cloning and running the app
 This is after you download and extract zip file in your desired folder or cloned this project via github
+
+### CMD line
 ```
 //cloning
 git clone -b local --single-branch https://github.com/GoitseoneKau/DailyTodo.git //for the repository that you can use locally, main branch runs with an online server
@@ -47,8 +48,6 @@ git clone -b local --single-branch https://github.com/GoitseoneKau/DailyTodo.git
 npm install 
 
 //To start the app run these commands//
-
-
 //run userServer and todoServer separate command line along the same path
 npm run userServer //This will run json server on port 3000 i.e localhost:3000/users
 
@@ -57,9 +56,9 @@ npm run todoServer//This will run json server on port 3001 i.e localhost:3001/to
 ng serve or npm run start //This will run the angular server
 ```
 
-*N.B You can change the ports of the JSON servers in the angular.json file*
+*N.B You can change the ports of the JSON servers in the package.json file*
 
-/angular.json :
+/package.json :
 ```
 "scripts:{
      ....,
@@ -67,6 +66,16 @@ ng serve or npm run start //This will run the angular server
     "userServer": "json-server --watch src/assets/users.json --port 3000",//JSON server script for users api or json file
     ....,
 }
+```
+
+###  Dummy User For Test
+```
+    {
+      "firstName": "Martin",
+      "lastName": "Kau",
+      "email": "martinkay@gmail.com",
+      "password": "abC12#",
+    }
 ```
 ## Features
 
@@ -83,11 +92,11 @@ ng serve or npm run start //This will run the angular server
 * Color Coded Todo Schemes To Visually Identify The Most Importantto Least important Todo
 
 ## Screenshots
-
+### Login
 ![Login Screen](/src/assets/images/login.PNG)
-
+### Signup
 ![Registration Screen](/src/assets/images/registration.PNG)
-
+### Todo List
 ![Todo Screen](/src/assets/images/filter.PNG)
 
 ## Preview
@@ -99,6 +108,8 @@ Check out my deployed API simple RESTful server on Render
 [TSExpressAPI for users](https://tsexpressrestapi.onrender.com/api/users) API end point for Users
 
 [TSExpressAPI for todos](https://tsexpressrestapi.onrender.com/api/todos) API end point for Todos
+
+[TSExpressAPI githublink](https://github.com/GoitseoneKau/TSExpressRestAPI) Github source for simple server
 
 This project is using `Angular 18`.
 
