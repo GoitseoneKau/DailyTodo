@@ -71,6 +71,15 @@
       "phone": "012 524 9849",
       "password": "billyJ12@",
       "userId": 14009
+    },
+    {
+      "id": 9,
+      "firstName": "maggy",
+      "lastName": "kane",
+      "email": "mkane@yahoo.com",
+      "phone": "012 524 9849",
+      "password": "maG12@",
+      "userId": 14010
     }
   ]
 }

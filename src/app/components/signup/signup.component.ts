@@ -87,8 +87,8 @@ userExistMessage:string=""//empty message for user not existing
       email: this.signupForm.get('email')?.value,
       phone: this.signupForm.get('phone')?.value,
       password:this.signupForm.get('password')?.value,
-      id:this.getNextId(this.Users).toString(),
-      userId :this.getNextUserId(this.Users).toString()
+      id:this.getNextId(this.Users),
+      userId :this.getNextUserId(this.Users)
     };
   
     if(this.checkUserExists(this.userInfo)){//check if the user exists

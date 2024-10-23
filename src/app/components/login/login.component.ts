@@ -54,11 +54,11 @@ export class LoginComponent {
     if(this.checkUser(this.loginForm.value as User)){
       if(this.checkUserPassword(this.loginForm.value as User)){//if user is found via email and password,login
         const user = this.loginForm.value as User
-        user.id = this.testUser?.id
+        user.id = this.testUser!.id
         this.loginService.login(this.loginForm.value as User)//login  through login service
         this.loggedIn =   this.loginService.isLoggedIn();//variable to store login truthy value
 
-        this.router.navigate(["/todos",this.testUser?.id],{ replaceUrl: true })//navigate to user todos page
+        this.router.navigate(["/todos",this.testUser!.id],{ replaceUrl: true })//navigate to user todos page
       }else{//else user does not login and send message to check password
         this.loggedIn = this.loginService.isLoggedIn();
         this.message = "login failed. Check your password"

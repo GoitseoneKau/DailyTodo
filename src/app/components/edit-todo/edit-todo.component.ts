@@ -15,7 +15,7 @@ import { NgIf, DatePipe, Location } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { TodosService } from '../../services/todos.service';
 import { MinDateValidator } from '../../customValidators/min-date-validator';
-import { error } from 'node:console';
+
 @Component({
   selector: 'app-edit-todo',
   standalone: true,
@@ -78,8 +78,7 @@ export class EditTodoComponent {
           priority: this.Todo.priority,
           dueDate: this.dp.transform(this.Todo.dueDate, 'yyyy-MM-ddThh:mm'),
         });
-      },
-      () => console.log('error')
+      }
     );
   }
 
