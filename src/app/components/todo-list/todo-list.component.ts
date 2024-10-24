@@ -46,7 +46,8 @@ export class TodoListComponent {
     const Id = parseInt(this.activatedRoute.snapshot.paramMap.get('uid')!)
     this.getUser(Id)
     this.todos.getTodos().subscribe(data=>{
-      this.Todos=data.filter(d=>d.userId===+this.userId)
+      this.Todos=data.filter(d=>d.userId===+this.userId).sort((a, b) => (
+        a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
       this.checkEmptyTodosOnPage(this.Todos)
       this.updateCompletedStatus(this.todoCompletedFilter)
     })
@@ -104,13 +105,15 @@ export class TodoListComponent {
     
     if(this.todoCompletedFilter==="All"){//show all todos
       this.todos.getTodos().subscribe(data=>{ 
-        this.Todos=data.filter(d=>d.userId===+this.userId)
+        this.Todos=data.filter(d=>d.userId===+this.userId).sort((a, b) => (
+          a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
         //update empty todos
         this.checkEmptyTodosOnPage(this.Todos)
       })
     }else{
       this.todos.getTodos().subscribe(data=>{
-          this.Todos=data.filter((d)=>d.completed === booleanAttribute(this.todoCompletedFilter)&&d.userId===+this.userId)
+          this.Todos=data.filter((d)=>d.completed === booleanAttribute(this.todoCompletedFilter)&&d.userId===+this.userId).sort((a, b) => (
+            a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
         
           //update empty todos
           this.checkEmptyTodosOnPage(this.Todos)
