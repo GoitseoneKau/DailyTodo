@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "firstName": "Emily",
       "lastName": "Johnson",
       "email": "emily.johnson@x.dummyjson.com",
@@ -10,7 +10,7 @@
       "userId": 14001
     },
     {
-      "id": 2,
+      "id": "2",
       "firstName": "Michael",
       "lastName": "Williams",
       "email": "michael.williams@x.dummyjson.com",
@@ -19,7 +19,7 @@
       "userId": 14002
     },
     {
-      "id": 3,
+      "id": "3",
       "firstName": "Sophia",
       "lastName": "Brown",
       "email": "sophia.brown@x.dummyjson.com",
@@ -28,7 +28,7 @@
       "userId": 14003
     },
     {
-      "id": 4,
+      "id": "4",
       "firstName": "James",
       "lastName": "Davis",
       "email": "james.davis@x.dummyjson.com",
@@ -37,7 +37,7 @@
       "userId": 14004
     },
     {
-      "id": 5,
+      "id": "5",
       "firstName": "Emma",
       "lastName": "Miller",
       "email": "emma.miller@x.dummyjson.com",
@@ -46,7 +46,7 @@
       "userId": 14005
     },
     {
-      "id": 6,
+      "id": "6",
       "firstName": "Martin",
       "lastName": "Kau",
       "email": "martinkay@gmail.com",
@@ -55,7 +55,7 @@
       "userId": 14006
     },
     {
-      "id": 7,
+      "id": "7",
       "firstName": "Ben",
       "lastName": "10",
       "email": "ben10k@gmail.com",
@@ -64,7 +64,7 @@
       "userId": 14008
     },
     {
-      "id": 8,
+      "id": "8",
       "firstName": "Billy",
       "lastName": "Jean",
       "email": "billj@example.com",
@@ -73,13 +73,40 @@
       "userId": 14009
     },
     {
-      "id": 9,
+      "id": "9",
       "firstName": "maggy",
       "lastName": "kane",
       "email": "mkane@yahoo.com",
       "phone": "012 524 9849",
       "password": "maG12@",
       "userId": 14010
+    },
+    {
+      "id": "10",
+      "firstName": "Dan",
+      "lastName": "Green",
+      "email": "dangreen@yahoo.com",
+      "phone": "012 524 9849",
+      "password": "@12asD",
+      "userId": 14011
+    },
+    {
+      "id": 11,
+      "firstName": "Sydney",
+      "lastName": "Jackson",
+      "email": "sydneyjackson@example.com",
+      "phone": "012 524 9849",
+      "password": "asD@123",
+      "userId": 14012
+    },
+    {
+      "id": "12",
+      "firstName": "ben",
+      "lastName": "10000",
+      "email": "ben10000@gmail.com",
+      "phone": "012 524 9849",
+      "password": "asD12#",
+      "userId": 14013
     }
   ]
 }

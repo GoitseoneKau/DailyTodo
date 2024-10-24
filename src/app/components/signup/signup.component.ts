@@ -70,11 +70,11 @@ userExistMessage:string=""//empty message for user not existing
   }
 
 
-  getNextId(obj:any){
+  getNextId(obj:any):number{
     return (Math.max.apply(Math,obj.map((o: { id: number })=>o.id))+1);//create unique user id number looping through object 
   }
 
-  getNextUserId(obj:any){
+  getNextUserId(obj:any):number{
     return (Math.max.apply(Math,obj.map((o: { userId: number })=>o.userId))+1);//create unique userid number looping through object 
   }
 
@@ -87,7 +87,7 @@ userExistMessage:string=""//empty message for user not existing
       email: this.signupForm.get('email')?.value,
       phone: this.signupForm.get('phone')?.value,
       password:this.signupForm.get('password')?.value,
-      id:this.getNextId(this.Users),
+      id:this.getNextId(this.Users).toString(),
       userId :this.getNextUserId(this.Users)
     };
   

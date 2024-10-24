@@ -27,7 +27,7 @@ import { MinDateValidator } from '../../customValidators/min-date-validator';
 export class EditTodoComponent {
   editForm!: FormGroup; //variable to access the editi form
   Todo!: Todo; //todo format variable
-  todoId: any; //todo id
+  todoId!: number; //todo id
   todoText: string = ''; //todo text/description
   prioritytext: string = ''; //todo priority variable
   todoDate: Date = new Date(); //todo date variable

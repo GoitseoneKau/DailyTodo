@@ -55,7 +55,7 @@ export class AddTodoComponent {
       // this.destroyRef.onDestroy(()=>getTodos.unsubscribe())//unsuscribe when component is detroyed
     }
 
-    getNextId(obj:any){
+    getNextId(obj:any):number{
       return (Math.max.apply(Math,obj.map((o: { id: number })=>o.id))+1);///get next id from array/object list
     }
 
@@ -75,12 +75,12 @@ export class AddTodoComponent {
       const todoData = this.addForm.value as Todo//store form ata User type format
       //insert extra info the form does not show automatically/dynamically
       todoData.userId = +this.userId
-      todoData.id = this.getNextId(this.todos)
+      todoData.id =this.getNextId(this.todos).toString()
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
 
-     const add =  this.todoService.postTodo(todoData).subscribe()//post new todo
-    //  this.destroyRef.onDestroy(()=>add.unsubscribe())//unsuscribe when component is destroyed nd service not in use
+     this.todoService.postTodo(todoData).subscribe()//post new todo
+  
       this.cancel()//redirect to todos page
       
     }
