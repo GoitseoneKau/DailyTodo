@@ -91,7 +91,7 @@
       "userId": 14011
     },
     {
-      "id": 11,
+      "id": "11",
       "firstName": "Sydney",
       "lastName": "Jackson",
       "email": "sydneyjackson@example.com",
@@ -107,6 +107,15 @@
       "phone": "012 524 9849",
       "password": "asD12#",
       "userId": 14013
+    },
+    {
+      "id": "13",
+      "firstName": "Jack",
+      "lastName": "Sparrow",
+      "email": "jacksparrow@yahoo.com",
+      "phone": "012-524-9849",
+      "password": "jackS@12",
+      "userId": 14014
     }
   ]
 }
