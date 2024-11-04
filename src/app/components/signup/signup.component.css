@@ -9,6 +9,23 @@
     height: 90%;
 }
 
+.signup-success{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    padding: 10px 5px;
+    width: 80%;
+    height: 3em;
+    background-color:  rgba(2, 177, 75, 0.079);
+    color: white;
+    border: 1px solid rgb(2, 177, 75);
+}
+.signup-success p{
+    text-align: center;
+    color:rgb(2, 177, 75);
+    width: 100%;
+}
+
 
 
 @media screen and (max-width:800px) {
