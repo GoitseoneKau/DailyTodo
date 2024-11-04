@@ -14,28 +14,7 @@
     .login{
        height: 100%;
     }
-   }
+}
    
-   /* general mobile phones */
-   @media screen and (max-width:450px) and (max-height:1000px){
-     
-       
-   }
-   
-   /* tablets - different sizes */
-   @media screen and (min-width:480px) and (min-height:1000px){
-      
-       
-   }
-   
-   
-   @media screen and (min-width:1000px) and (min-height:800px){
-     
-       
-   }
-   
-   @media screen and (min-width:700px) and (min-height:1000px){
-       
-       
-   }
+
    
