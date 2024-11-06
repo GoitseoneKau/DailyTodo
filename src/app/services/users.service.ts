@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { User } from '../types/user';
 import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,11 @@ import { HttpClient } from '@angular/common/http';
 export class UsersService {
 
   private url:string = "https://tsexpressrestapi.onrender.com/api/users"
+
   
   constructor(private https:HttpClient) { }
+
+
 
   getUsers():Observable<User[]>{
     return this.https.get<User[]>(this.url)

@@ -1,14 +1,22 @@
+import { map, repeat } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, shareReplay, tap } from 'rxjs';
 import { Todo } from '../types/todo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodosService {
-private url:string = "https://tsexpressrestapi.onrender.com/api/todos"
-  constructor(private https:HttpClient) { }
+
+  private url:string = "https://tsexpressrestapi.onrender.com/api/todos"
+
+  todoBehavior:BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
+
+  todo$ = this.todoBehavior.asObservable();
+
+  constructor(private https:HttpClient) { } 
+  
 
   getTodos():Observable<Todo[]>{
     return this.https.get<Todo[]>(this.url)

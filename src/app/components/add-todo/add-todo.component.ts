@@ -8,6 +8,7 @@ import { User } from '../../types/user';
 import { Todo } from '../../types/todo';
 import { TodosService } from '../../services/todos.service';
 import { MinDateValidator } from '../../customValidators/min-date-validator';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -23,17 +24,19 @@ export class AddTodoComponent {
   addForm!:FormGroup//variable to access add todo form
   userId:any
   todos:Todo[]=[]
-  minDate = new Date()
+  minDate = new Date(); //date to check again input date
   destroyRef = inject(DestroyRef)//inject destroy service class
-  
+  subscriptionTodo!: Subscription;
+  addTodoSubscription!: Subscription;
+
     constructor(
       private router:Router,
       public LoginService:LoginService,
       private todoService:TodosService,
       private activeRoute:ActivatedRoute,
       private location:Location,
-      private fb:FormBuilder,
-      private dp:DatePipe){//inject services
+      private fb:FormBuilder
+   ){//inject services
 
       this.addForm = this.fb.group({//set form values
        todo: new FormControl("",[
@@ -44,26 +47,30 @@ export class AddTodoComponent {
           Validators.required,
         ]),
         dueDate: new FormControl("",[
-          Validators.required,MinDateValidator.dateMin(this.minDate)//customised date validator
+          Validators.required,MinDateValidator.dateMin()//customised date validator
         ])
       })
     }
 
     ngOnInit(){
       this.userId = this.activeRoute.snapshot.paramMap.get('uid')//get user unique id
-      const getTodos = this.todoService.getTodos().subscribe((todos)=>this.todos = todos)//get todo
-      // this.destroyRef.onDestroy(()=>getTodos.unsubscribe())//unsuscribe when component is detroyed
     }
 
+    ngOnDestroy(){
+      //this.addTodoSubscription.unsubscribe()
+    }
+    
+
+    getNextId(obj:any){
+      return (Math.max.apply(Math,obj.map((o: { id: number })=>o.id))+1);///get next id from array/object list
+    }
 
     setPriorityColor(priority:string):string{//set priority color according to priority text
       let color=""
 
-      if(priority=="High"){   color="#db0d0d" }
-
-      if(priority=="Medium"){ color="Orange"  }
-
-      if(priority=="Low"){    color="#eded15" }
+      if(priority=="High"){ color="#db0d0d" }//if priority 'High', set color to a  'red' shade
+      if(priority=="Medium"){ color="Orange"  }//if priority 'Medium', set color to 'orange'
+      if(priority=="Low"){ color="#eded15" }//if priority 'Low', set color to a 'yellow' shade
 
       return color
     }
@@ -74,17 +81,14 @@ export class AddTodoComponent {
       todoData.userId = +this.userId
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
-
-     const add =  this.todoService.postTodo(todoData).subscribe()//post new todo
+    
+      this.todoService.postTodo(todoData).subscribe()//post new todo
      
-    //  this.destroyRef.onDestroy(()=>add.unsubscribe())//unsuscribe when component is destroyed nd service not in use
-      
-    this.cancel()//redirect to todos page
+      this.location.back()//redirect to todos page
       
     }
 
     cancel(){
-      const user = JSON.parse(sessionStorage.getItem("user")!)//get logged in user info
-    this.router.navigate([`/todos/${+user.id}`])//go back to todo list of user//navigate back to toos page
+      this.location.back()//navigate back to toos page
     }
 }

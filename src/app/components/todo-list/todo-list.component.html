@@ -24,7 +24,7 @@
         <div class="group-input">
           <label for="Status">Status:</label>
 
-          <select name="Status" id="Status" (ngModelChange)="updateCompletedStatus($event)" [(ngModel)]="todoCompletedFilter">
+          <select name="Status" id="Status" (ngModelChange)="updateStatus($event)" [(ngModel)]="todoIsCompleteFilter">
             <option value="All" selected>All</option>
             <option value="true">complete</option>
             <option value="false">Incomplete</option>
@@ -50,6 +50,7 @@
 
           <ng-container *ngFor="let todo of Todos">
             <todo-item 
+            [id]="todo.id"
               *ngIf="todo.priority==todoPriorityFilter || (todo.priority=='High' && todoPriorityFilter=='All')"
               [todo]="todo" 
               (onEdit)="editTodo(todo)" 
@@ -74,6 +75,7 @@
 
           <ng-container *ngFor="let todo of Todos">
             <todo-item 
+            [id]="todo.id"
               *ngIf="todo.priority==todoPriorityFilter || (todo.priority=='Medium' && todoPriorityFilter=='All')"  
               [todo]="todo" 
               (onEdit)="editTodo(todo)" 
@@ -97,6 +99,7 @@
 
           <ng-container *ngFor="let todo of Todos">
             <todo-item 
+            [id]="todo.id"
               *ngIf="todo.priority==todoPriorityFilter || (todo.priority=='Low' && todoPriorityFilter=='All')"  
               [todo]="todo" 
               (onEdit)="editTodo(todo)" 
@@ -112,6 +115,16 @@
 
     </ng-container>
 
+     <!-- sign up  loading spinner -->
+     <ngx-spinner 
+     type="ball-clip-rotate-pulse" 
+     size="default"
+     [bdColor]="bdcolor"
+     [color]="ani_color" 
+     size="medium"
+      >
+         <p class="poppins-medium" > {{loadingMessage}} </p>
+ </ngx-spinner>
   </div>
 
 </ng-container>

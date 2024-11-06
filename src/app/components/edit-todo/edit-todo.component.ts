@@ -16,6 +16,7 @@ import { LoginService } from '../../services/login.service';
 import { TodosService } from '../../services/todos.service';
 import { MinDateValidator } from '../../customValidators/min-date-validator';
 import { error } from 'node:console';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-edit-todo',
   standalone: true,
@@ -34,6 +35,7 @@ export class EditTodoComponent {
   isLoggedIn: boolean = false; //store logged in result
   minDate = new Date(); //date to check again input date
   destroyRef = inject(DestroyRef); //inject destroy service class
+updateSubscription?:Subscription;
 
   constructor(
     private router: Router,
@@ -61,12 +63,15 @@ export class EditTodoComponent {
       priority: new FormControl('', [Validators.required]), //this.dp.transform(todo.dueDate,"yyyy-MM-ddThh:mm:ss")
       dueDate: new FormControl('', [
         Validators.required,
-        MinDateValidator.dateMin(this.minDate), //custom date validator
+        MinDateValidator.dateMin(), //custom date validator
       ]),
     });
   }
 
-  ngAfterViewInit() {}
+  ngOnDestroy(){
+    this.updateSubscription?.unsubscribe()
+  }
+
 
   setTodo(id: number) {
     this.todoService.getTodo(id).subscribe(
@@ -78,8 +83,7 @@ export class EditTodoComponent {
           priority: this.Todo.priority,
           dueDate: this.dp.transform(this.Todo.dueDate, 'yyyy-MM-ddThh:mm'),
         });
-      },
-      () => console.log('error')
+      }
     );
   }
 
@@ -91,8 +95,9 @@ export class EditTodoComponent {
     this.Todo.priority = this.editForm.get('priority')?.value;
     this.Todo.priorityColor = this.setPriorityColor(this.Todo.priority);
 
-    const update = this.todoService.updateTodos(this.Todo).subscribe(); //post updated todo
+    this.updateSubscription = this.todoService.updateTodos(this.Todo).subscribe(); //post updated todo
 
+    
     this.cancel(); //redirect to todo list page
   }
 

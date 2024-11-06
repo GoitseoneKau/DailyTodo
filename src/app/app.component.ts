@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { User } from './types/user';
-import { TodosService } from './services/todos.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { UsersService } from './services/users.service';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
-
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginService } from './services/login.service';

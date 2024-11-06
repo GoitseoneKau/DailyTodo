@@ -89,6 +89,7 @@ ng serve or npm run start //This will run the angular server
 * Add Todo Item Functionality
 * Display Stored Todo Items In List Form
 * Filtering Functionality According to *__Low to High Priority__* and *__Completed Status__*
+* Loading Animation For Better User Experience
 * Color Coded Todo Schemes To Visually Identify The Most Importantto Least important Todo
 
 ## Screenshots
@@ -98,6 +99,8 @@ ng serve or npm run start //This will run the angular server
 ![Registration Screen](/src/assets/images/registration.PNG)
 ### Todo List
 ![Todo Screen](/src/assets/images/filter.PNG)
+### Loading
+![Loading Screen](/src/assets/images/loading.PNG)
 
 ## Preview
 
@@ -111,7 +114,7 @@ Check out my deployed API simple RESTful server on Render
 
 [TSExpressAPI githublink](https://github.com/GoitseoneKau/TSExpressRestAPI) Github source for simple server
 
-This project is using `Angular 18`.
+This project is using `Angular 18` base code,Animation.css and Ngx-Spinner for animations and FontAwesome Icons.
 
 ## Angular 18
 
