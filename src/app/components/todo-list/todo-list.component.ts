@@ -27,6 +27,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
   Todos:Todo[]=[]
   filteredTodos: Todo[]=[];
   subscribedTodos?: Subscription;
+  subscribedTodo$?: Subscription;
   isLoggedIn:boolean=false
   todayDate = new Date();
   user!:User
@@ -52,13 +53,79 @@ export class TodoListComponent implements OnInit,OnDestroy {
     private loaderService:LoaderService
   ){ }//inject services 
 
-  ngOnInit(){
+   ngOnInit(){
+
     //check if user is logged in
     this.isLoggedIn = this.loginService.isLoggedIn()
+
     //store user id
     const Id = parseInt(this.activatedRoute.snapshot.paramMap.get('uid')!)
     this.getUser(Id)
 
+    //start loader
+    this.startLoader()
+   
+    //subscribe to getTodos
+    this.subscribedTodos = this.todoService.getTodos()
+    .subscribe({
+      next:(data)=>{
+     
+        //update subject behaviour with next value emmited
+        this.todoService.todoBehavior.next(data)
+
+        //subscribe to todo subject behavior as observable
+        this.subscribedTodo$ = this.todoService.todo$.subscribe((todos)=>{
+           
+            //store updated filtered todos by user, sorted by dates in ascending order
+            this.Todos=todos.filter(d=>d.userId===this.userId)
+            .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+
+            //store data for filtering,speeds up search
+            this.filteredTodos = this.Todos
+
+            //update ui according to status in select control
+            this.updateStatus(this.todoIsCompleteFilter)
+
+            //update empty todos
+            this.checkEmptyTodosOnPage(this.Todos)
+        
+        })
+        
+      },
+      error:(e)=>console.log(e),
+      complete:()=>{//post services completes or returns complete response
+
+        //end loader
+        this.completeLoader()
+       
+     }
+    })
+ 
+  }
+
+  ngOnDestroy(){
+      this.subscribedTodos?.unsubscribe()//unsubscribe to todos subscription
+      this.subscribedTodo$?.unsubscribe()//unsubscribe to todos Observable subject behavior subscription
+  }
+
+
+  //complete loader function
+  completeLoader(){
+    //change loader to green
+    this.ani_color="rgb(2,177,75)"
+
+    //change message
+    this.loadingMessage="Complete"
+
+    //unload animation ,set 'signedUp' to true
+    setTimeout(() => {
+      this.loaderService.unloading() 
+    }, 1000);
+  }
+
+ //start loader function
+  startLoader(){
+    
     //open loading animation
     this.loaderService.loading()
 
@@ -70,45 +137,6 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
     //set message
     this.loadingMessage = "Loading.."
-   
-    this.subscribedTodos = this.todoService.getTodos().pipe(delay(1000))
-    .subscribe({
-      next:(data)=>{
-        //store filtered todos by user, sorted by dates in ascending order
-        this.Todos = data.filter(d=>d.userId===this.userId)
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
-      
-        //store data for filtering,speeds up search
-        this.filteredTodos = this.Todos
-
-         //update ui according to status in select control
-         this.updateStatus(this.todoIsCompleteFilter)
-
-         //update empty todos
-         this.checkEmptyTodosOnPage(this.Todos)
-        
-      },
-      error:(e)=>console.log(e),
-      complete:()=>{//post services completes or returns complete response
-
-        //change loader to green
-        this.ani_color="rgb(2,177,75)"
-
-        //change message
-        this.loadingMessage="Complete"
-
-        //unload animation ,set 'signedUp' to true
-        setTimeout(() => {
-          this.loaderService.unloading() 
-        }, 1000);
-       
-     }
-    })
- 
-  }
-
-  ngOnDestroy(){
-      this.subscribedTodos?.unsubscribe()//unsubscribe to todos subscription
   }
 
   //get user according to userId
@@ -140,12 +168,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
   //function to delete todo
   deleteTodo(todo:Todo){
 
-    //delay delation of element to time with animation
-    const delayDelete = this.todoService.deleteTodo(todo);
-
     //delete todo
-    const deleteTodo = delayDelete.subscribe(()=>{
-    this.Todos = this.Todos
+    const deleteTodo =this.todoService.deleteTodo(todo).subscribe(()=>{
+    this.Todos = this.filteredTodos
     .filter(t=>t.id !== todo.id)
     .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
 
@@ -177,24 +202,16 @@ export class TodoListComponent implements OnInit,OnDestroy {
     this.todoIsCompleteFilter = e
     
     if(this.todoIsCompleteFilter === "All"){//show all todos  
-       //filter to all todos of user's ID
-       this.Todos = this.filteredTodos
-       .filter((t)=> t.userId === this.userId)
-       .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+        //filter to all todos of user's ID
+        this.Todos = this.filteredTodos
+        .filter((t)=> t.userId === this.userId)
+        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
 
-       //update empty todos
-       this.checkEmptyTodosOnPage(this.Todos)
-      // this.todos.getTodos().subscribe((todos)=>{
-
-      //   //filter to all todos of user's ID
-      //   this.Todos = todos
-      //   .filter((t)=> t.userId === this.userId)
-      //   .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
-
-      //   //update empty todos
-      //   this.checkEmptyTodosOnPage(this.Todos)
-      // })
+        //update empty todos
+        this.checkEmptyTodosOnPage(this.Todos)
+     
     }else{   
+      
        //filter completed/incompleted todos
        this.Todos = this.filteredTodos
        .filter((t)=>t.completed === booleanAttribute(this.todoIsCompleteFilter) && t.userId === this.userId)
@@ -202,16 +219,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
        //update empty todos
        this.checkEmptyTodosOnPage(this.Todos)
-        // this.todos.getTodos().subscribe((todos)=>{
-
-        //   //filter completed/incompleted todos
-        //   this.Todos = todos
-        //   .filter((t)=>t.completed === booleanAttribute(this.todoIsCompleteFilter) && t.userId === this.userId)
-        //   .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
-
-        //   //update empty todos
-        //   this.checkEmptyTodosOnPage(this.Todos)
-        // })
+        
     }
   }
   

@@ -77,12 +77,18 @@ export class AddTodoComponent {
 
     addTodo(){//submit todo
       const todoData = this.addForm.value as Todo//store form ata User type format
+      
       //insert extra info the form does not show automatically/dynamically
       todoData.userId = +this.userId
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
     
-      this.todoService.postTodo(todoData).subscribe()//post new todo
+      this.todoService.postTodo(todoData).subscribe((todos)=>{
+
+        //update the todo subject behavior with next value emitted
+        this.todoService.todoBehavior.next(todos)
+
+      })//post new todo
      
       this.location.back()//redirect to todos page
       
