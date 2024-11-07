@@ -72,7 +72,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
      
         //update subject behaviour with next value emmited
         this.todoService.todoBehavior.next(data)
-
+      
         //subscribe to todo subject behavior as observable
         this.subscribedTodo$ = this.todoService.todo$.subscribe((todos)=>{
            

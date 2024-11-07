@@ -53,7 +53,9 @@ updateSubscription?:Subscription;
     this.todoId = parseInt(this.activeRoute.snapshot.paramMap.get('id')!); //get todo id from url or route path
 
     this.isLoggedIn = this.loginService.isLoggedIn(); //check if user is logged in
+
     this.setTodo(this.todoId); //set the todo to be edited
+
     this.editForm = this.fb.group({
       //get form values and validate
       todo: new FormControl('', [
@@ -68,9 +70,6 @@ updateSubscription?:Subscription;
     });
   }
 
-  ngOnDestroy(){
-    this.updateSubscription?.unsubscribe()
-  }
 
 
   setTodo(id: number) {
@@ -94,8 +93,16 @@ updateSubscription?:Subscription;
     this.Todo.dueDate = this.editForm.get('dueDate')?.value;
     this.Todo.priority = this.editForm.get('priority')?.value;
     this.Todo.priorityColor = this.setPriorityColor(this.Todo.priority);
+    console.log(this.Todo)
 
-    this.updateSubscription = this.todoService.updateTodos(this.Todo).subscribe(); //post updated todo
+  
+
+    this.updateSubscription = this.todoService.updateTodos(this.Todo).subscribe(
+     (todo)=>{
+      console.log(todo)
+        this.todoService.todoBehavior.next(todo)
+      }
+    ); //post updated todo
 
     
     this.cancel(); //redirect to todo list page
