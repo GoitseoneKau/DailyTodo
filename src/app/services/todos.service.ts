@@ -9,15 +9,11 @@ import { Todo } from '../types/todo';
 export class TodosService {
   private url:string = "http://localhost:3001/todos"
   
-  todoBehavior:BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
 
-  todo$ = this.todoBehavior.asObservable();
 
   constructor(private https:HttpClient) { } 
 
-  getTodos$():Observable<Todo[]>{
-    return this.https.get<Todo[]>(this.url).pipe(tap((todos)=>this.todoBehavior.next(todos)))
-  }
+
 
   getTodos():Observable<Todo[]>{
     return this.https.get<Todo[]>(this.url)

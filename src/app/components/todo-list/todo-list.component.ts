@@ -9,9 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../types/user';
-import { delay, Subscription } from 'rxjs';
+import { delay, map, Subscription, tap } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { table } from 'console';
 
 
 
@@ -65,14 +66,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
   this.startLoader()
  
   //subscribe to getTodos
-  this.subscribedTodos = this.todoService.getTodos$().subscribe()
-
-  //subscribe to todo subject behavior as observable
-  this.subscribedTodo$ = this.todoService.todo$
-  .subscribe((data)=>{
-    
-          //update subject behavior
-          //this.todoService.todoBehavior.next(data)
+  this.subscribedTodos  = this.todoService.getTodos().pipe(delay(1000))
+  .subscribe({
+    next:(data)=>{
 
           //store updated filtered todos by user, sorted by dates in ascending order
           this.Todos=data.filter(d=>d.userId===this.userId)
@@ -86,12 +82,15 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
           //update empty todos
           this.checkEmptyTodosOnPage(this.Todos)
+        
+      
+      },
+      complete:()=>{
           
            //end loader
-          this.completeLoader()
-      
+           this.completeLoader()
       }
-   )
+  })
 
  
   }
@@ -203,25 +202,33 @@ export class TodoListComponent implements OnInit,OnDestroy {
     this.todoIsCompleteFilter = e
     
     if(this.todoIsCompleteFilter==="All"){//show all todos  
+      this.todoService.getTodos().subscribe((todos)=>{
 
         //filter to all todos of user's ID
-        this.Todos = this.filteredTodos
+        this.Todos = todos
         .filter((t)=> t.userId ===this.userId)
         .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
-
+        this.filteredTodos =this.Todos
         //update empty todos
         this.checkEmptyTodosOnPage(this.Todos)
+  })
+    
    
     }else{   
 
+      this.todoService.getTodos().subscribe((todos)=>{
 
-          //filter completed/incompleted todos
-          this.Todos = this.filteredTodos
-          .filter((t)=>t.completed === booleanAttribute(this.todoIsCompleteFilter) && t.userId ===this.userId)
-          .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+        //filter to all todos of user's ID
+        this.Todos = todos
+        .filter((t)=>t.completed === booleanAttribute(this.todoIsCompleteFilter) && t.userId ===this.userId)
+        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
 
-          //update empty todos
-          this.checkEmptyTodosOnPage(this.Todos)
+        this.filteredTodos =this.Todos
+        //update empty todos
+        this.checkEmptyTodosOnPage(this.Todos)
+  })
+
+          
     }
   }
   

@@ -90,9 +90,7 @@ export class EditTodoComponent {
     this.Todo.priority = this.editForm.get('priority')?.value;
     this.Todo.priorityColor = this.setPriorityColor(this.Todo.priority);
 
-    const update = this.todoService.updateTodos(this.Todo).subscribe( (todo)=>{
-      this.todoService.todoBehavior.next(todo)
-    }); //post updated todo
+    const update = this.todoService.updateTodos(this.Todo).subscribe(); //post updated todo
 
     this.cancel(); //redirect to todo list page
   }
