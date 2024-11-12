@@ -88,15 +88,9 @@ updateSubscription?:Subscription;
     this.Todo.dueDate = this.editForm.get('dueDate')?.value;
     this.Todo.priority = this.editForm.get('priority')?.value;
     this.Todo.priorityColor = this.setPriorityColor(this.Todo.priority);
-    console.log(this.Todo)
 
-  
 
-    this.updateSubscription = this.todoService.updateTodos(this.Todo).subscribe(
-     (todo)=>{
-        this.todoService.todoBehavior.next(todo)
-      }
-    ); //post updated todo
+    this.updateSubscription = this.todoService.updateTodos(this.Todo).subscribe(); //post updated todo
 
     
     this.cancel(); //redirect to todo list page

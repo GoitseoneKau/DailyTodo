@@ -79,12 +79,7 @@ export class AddTodoComponent {
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
     
-     this.todoService.postTodo(todoData).subscribe((todos)=>{
-
-        //update the todo subject behavior with next value emitted
-        this.todoService.todoBehavior.next(todos)
-
-      })//post new todo
+     this.todoService.postTodo(todoData).subscribe()//post new todo
      
       this.location.back()//redirect to todos page
       
