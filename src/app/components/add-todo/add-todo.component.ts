@@ -51,7 +51,12 @@ export class AddTodoComponent {
 
     ngOnInit(){
       this.userId = this.activeRoute.snapshot.paramMap.get('uid')//get user unique id
-      const getTodos = this.todoService.getTodos().subscribe((todos)=>this.todos = todos)//get todo
+      const getTodos = this.todoService.getTodos().subscribe((todos)=>{
+
+        //update the todo subject behavior with next value emitted
+        this.todoService.todoBehavior.next(todos)
+
+      })//get todo
       // this.destroyRef.onDestroy(()=>getTodos.unsubscribe())//unsuscribe when component is detroyed
     }
 

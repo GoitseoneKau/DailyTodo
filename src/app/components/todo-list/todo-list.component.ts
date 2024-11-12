@@ -40,11 +40,12 @@ export class TodoListComponent implements OnInit,OnDestroy {
   bdcolor: string="";
   ani_color: string="";
   loadingMessage: string="";
+  subscribedTodo$!: Subscription;
 
 
 
   constructor(
-    private todos:TodosService,
+    private todoService:TodosService,
     private users:UsersService,
     private router:Router,
     private loginService:LoginService,
@@ -94,7 +95,40 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(){
       this.subscribedTodos?.unsubscribe()//unsubscribe to todos subscription
+      this.subscribedTodo$?.unsubscribe()//unsubscribe to todos Observable subject behavior subscription
   }
+
+
+  //complete loader function
+  completeLoader(){
+    //change loader to green
+    this.ani_color="rgb(2,177,75)"
+
+    //change message
+    this.loadingMessage="Complete"
+
+    //unload animation ,set 'signedUp' to true
+    setTimeout(() => {
+      this.loaderService.unloading() 
+    }, 1000);
+  }
+
+ //start loader function
+  startLoader(){
+    
+    //open loading animation
+    this.loaderService.loading()
+
+    //set background color to white,80% opacity
+    this.bdcolor ="rgba(255,255,255,0.8)"
+
+    //set loader color to red
+    this.ani_color ="#f81212"
+
+    //set message
+    this.loadingMessage = "Loading.."
+  }
+
 
   //get user according to userId
   getUser(userId:number){
@@ -113,7 +147,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
     todo.completed = !todo.completed
 
     //update complete
-    const updateComplete = this.todos.updateTodos(todo).subscribe()
+    const updateComplete = this.todoService.updateTodos(todo).subscribe()
 
     //update empty todos
     this.checkEmptyTodosOnPage(this.Todos)
@@ -125,7 +159,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
   deleteTodo(todo:Todo){//function to delete todo
 
     //delay delation of element to time with animation
-    const delayDelete = this.todos.deleteTodo(todo).pipe(delay(1000));
+    const delayDelete = this.todoService.deleteTodo(todo).pipe(delay(1000));
 
     //delete todo
     const deleteTodo = delayDelete.subscribe(()=>{
@@ -166,7 +200,6 @@ export class TodoListComponent implements OnInit,OnDestroy {
     this.todoIsCompleteFilter = e
     
     if(this.todoIsCompleteFilter==="All"){//show all todos  
-      this.todos.getTodos().subscribe((todos)=>{
 
         //filter to all todos of user's ID
         this.Todos = this.filteredTodos
@@ -175,9 +208,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
         //update empty todos
         this.checkEmptyTodosOnPage(this.Todos)
-      })
+   
     }else{   
-        this.todos.getTodos().subscribe((todos)=>{
+
 
           //filter completed/incompleted todos
           this.Todos = this.filteredTodos
@@ -186,7 +219,6 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
           //update empty todos
           this.checkEmptyTodosOnPage(this.Todos)
-        })
     }
   }
   
