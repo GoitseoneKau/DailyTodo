@@ -53,50 +53,42 @@ export class TodoListComponent implements OnInit,OnDestroy {
   ){ }//inject services 
 
   ngOnInit(){
-    //check if user is logged in
-    this.isLoggedIn = this.loginService.isLoggedIn()
-    //store user id
-    const Id = parseInt(this.activatedRoute.snapshot.paramMap.get('uid')!)
-    this.getUser(Id)
+  //check if user is logged in
+  this.isLoggedIn = this.loginService.isLoggedIn()
 
-    //open loading animation
-    this.loaderService.loading()
+  //store user id
+  const Id = parseInt(this.activatedRoute.snapshot.paramMap.get('uid')!)
+  this.getUser(Id)
 
-    //set background color to white,80% opacity
-    this.bdcolor="rgba(255,255,255,0.8)"
+  //start loader
+  this.startLoader()
+ 
+  //subscribe to getTodos
+  this.subscribedTodos = this.todoService.getTodos$().subscribe()
 
-    //set loader color to red
-    this.ani_color ="#f81212"
+  //subscribe to todo subject behavior as observable
+  this.subscribedTodo$ = this.todoService.todo$
+  .subscribe((data)=>{
+    
+          //store updated filtered todos by user, sorted by dates in ascending order
+          this.Todos=data.filter(d=>d.userId===this.userId)
+          .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
 
-    //set message
-    this.loadingMessage="Loading.."
+          //store data for filtering,speeds up search
+          this.filteredTodos = this.Todos
 
-    this.subscribedTodos = this.todos.getTodos().pipe(delay(2000)).subscribe({
-      next:(data)=>{
-        //store filtered todos by user, sorted by dates in ascending order
-        this.Todos=data.filter(d=>d.userId===this.userId)
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+          //update ui according to status in select control
+          this.updateStatus(this.todoIsCompleteFilter)
 
-        //store data for filtering,speeds up search
-        this.filteredTodos=this.Todos
+          //update empty todos
+          this.checkEmptyTodosOnPage(this.Todos)
+          
+           //end loader
+          this.completeLoader()
+      
+      }
+   )
 
-        //update ui according to status in select control
-        this.updateStatus(this.todoIsCompleteFilter)
-      },
-      complete:()=>{//post services completes or returns complete response
-
-        //change loader to green
-        this.ani_color="rgb(2,177,75)"
-
-         //change message
-         this.loadingMessage="Complete"
-
-         //unload animation after 2 seconds, set 'signedUp' to true
-         setTimeout(()=>{
-           this.loaderService.unloading() 
-         },2000)
-     }
-    })
  
   }
 
