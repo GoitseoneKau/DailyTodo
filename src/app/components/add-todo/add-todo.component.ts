@@ -25,6 +25,7 @@ export class AddTodoComponent {
   todos:Todo[]=[]
   minDate = new Date()
   destroyRef = inject(DestroyRef)//inject destroy service class
+  nextId: string="";
   
     constructor(
       private router:Router,
@@ -52,7 +53,9 @@ export class AddTodoComponent {
     ngOnInit(){
       this.userId = this.activeRoute.snapshot.paramMap.get('uid')//get user unique id
       const getTodos = this.todoService.getTodos().subscribe((todos)=>{
-
+        //generate todo unique id
+        this.nextId = this.getNextId(todos).toString() 
+        
         //update the todo subject behavior with next value emitted
         this.todoService.todoBehavior.next(todos)
 
@@ -80,7 +83,7 @@ export class AddTodoComponent {
       const todoData = this.addForm.value as Todo//store form ata User type format
       //insert extra info the form does not show automatically/dynamically
       todoData.userId = +this.userId
-      todoData.id =this.getNextId(this.todos).toString()
+      todoData.id =this.nextId
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
 

@@ -71,6 +71,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
   this.subscribedTodo$ = this.todoService.todo$
   .subscribe((data)=>{
     
+          //update subject behavior
+          //this.todoService.todoBehavior.next(data)
+
           //store updated filtered todos by user, sorted by dates in ascending order
           this.Todos=data.filter(d=>d.userId===this.userId)
           .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
