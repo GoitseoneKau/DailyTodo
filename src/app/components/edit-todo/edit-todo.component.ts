@@ -2,25 +2,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, DestroyRef, inject } from '@angular/core';
 import { Todo } from '../../types/todo';
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { NgIf, DatePipe, Location } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { TodosService } from '../../services/todos.service';
 import { MinDateValidator } from '../../customValidators/min-date-validator';
-import { error } from 'node:console';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-edit-todo',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, DatePipe],
+  imports: [ReactiveFormsModule, NgIf],
   providers: [DatePipe],
   templateUrl: './edit-todo.component.html',
   styleUrl: './edit-todo.component.css',
@@ -42,7 +38,6 @@ updateSubscription?:Subscription;
     private loginService: LoginService,
     private todoService: TodosService,
     private activeRoute: ActivatedRoute,
-    private location: Location,
     private fb: FormBuilder,
     private dp: DatePipe
   ) {

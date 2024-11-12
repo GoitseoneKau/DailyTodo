@@ -26,8 +26,7 @@ export class AddTodoComponent {
   todos:Todo[]=[]
   minDate = new Date(); //date to check again input date
   destroyRef = inject(DestroyRef)//inject destroy service class
-  subscriptionTodo!: Subscription;
-  addTodoSubscription!: Subscription;
+  // addTodoSubscription!: Subscription;
 
     constructor(
       private router:Router,
@@ -56,9 +55,6 @@ export class AddTodoComponent {
       this.userId = this.activeRoute.snapshot.paramMap.get('uid')//get user unique id
     }
 
-    ngOnDestroy(){
-      //this.addTodoSubscription.unsubscribe()
-    }
     
 
     getNextId(obj:any){
@@ -83,7 +79,7 @@ export class AddTodoComponent {
       todoData.priorityColor = this.setPriorityColor(todoData.priority)
       todoData.completed = false
     
-      this.todoService.postTodo(todoData).subscribe((todos)=>{
+     this.todoService.postTodo(todoData).subscribe((todos)=>{
 
         //update the todo subject behavior with next value emitted
         this.todoService.todoBehavior.next(todos)

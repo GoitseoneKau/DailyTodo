@@ -100,7 +100,7 @@ ng serve or npm run start //This will run the angular server
 ### Todo List
 ![Todo Screen](/src/assets/images/filter.PNG)
 ### Loading
-![Loading Screen](/src/assets/images/loading.PNG)
+![Loading Screen](/src/assets/images/loading.png)
 
 ## Preview
 

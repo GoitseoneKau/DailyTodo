@@ -17,6 +17,9 @@ export class TodosService {
 
   constructor(private https:HttpClient) { } 
   
+  getTodos$():Observable<Todo[]>{
+    return this.https.get<Todo[]>(this.url).pipe(tap((todos)=>this.todoBehavior.next(todos)))
+  }
 
   getTodos():Observable<Todo[]>{
     return this.https.get<Todo[]>(this.url)

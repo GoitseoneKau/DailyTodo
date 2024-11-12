@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../types/user';
-import { delay, Subscription } from 'rxjs';
+import { delay, Subscription, take } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -66,18 +66,14 @@ export class TodoListComponent implements OnInit,OnDestroy {
     this.startLoader()
    
     //subscribe to getTodos
-    this.subscribedTodos = this.todoService.getTodos()
-    .subscribe({
-      next:(data)=>{
-     
-        //update subject behaviour with next value emmited
-        this.todoService.todoBehavior.next(data)
+    this.subscribedTodos = this.todoService.getTodos$().subscribe()
+
+    //subscribe to todo subject behavior as observable
+    this.subscribedTodo$ = this.todoService.todo$
+    .subscribe((data)=>{
       
-        //subscribe to todo subject behavior as observable
-        this.subscribedTodo$ = this.todoService.todo$.subscribe((todos)=>{
-           
             //store updated filtered todos by user, sorted by dates in ascending order
-            this.Todos=todos.filter(d=>d.userId===this.userId)
+            this.Todos=data.filter(d=>d.userId===this.userId)
             .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
 
             //store data for filtering,speeds up search
@@ -88,18 +84,58 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
             //update empty todos
             this.checkEmptyTodosOnPage(this.Todos)
+            
+             //end loader
+            this.completeLoader()
         
-        })
-        
-      },
-      error:(e)=>console.log(e),
-      complete:()=>{//post services completes or returns complete response
+        }
+     )
 
-        //end loader
-        this.completeLoader()
+    // //check if user is logged in
+    // this.isLoggedIn = this.loginService.isLoggedIn()
+
+    // //store user id
+    // const Id = parseInt(this.activatedRoute.snapshot.paramMap.get('uid')!)
+    // this.getUser(Id)
+
+    // //start loader
+    // this.startLoader()
+   
+    // //subscribe to getTodos
+    // this.subscribedTodos = this.todoService.getTodos()
+    // .subscribe({
+    //   next:(data)=>{
+     
+    //     //update subject behaviour with next value emmited
+    //     this.todoService.todoBehavior.next(data)
+      
+    //     //subscribe to todo subject behavior as observable
+    //     this.subscribedTodo$ = this.todoService.todo$.subscribe((todos)=>{
+           
+    //         //store updated filtered todos by user, sorted by dates in ascending order
+    //         this.Todos=todos.filter(d=>d.userId===this.userId)
+    //         .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+
+    //         //store data for filtering,speeds up search
+    //         this.filteredTodos = this.Todos
+
+    //         //update ui according to status in select control
+    //         this.updateStatus(this.todoIsCompleteFilter)
+
+    //         //update empty todos
+    //         this.checkEmptyTodosOnPage(this.Todos)
+        
+    //     })
+        
+    //   },
+    //   error:(e)=>console.log(e),
+    //   complete:()=>{//post services completes or returns complete response
+
+    //     //end loader
+    //     this.completeLoader()
        
-     }
-    })
+    //  }
+    // })
  
   }
 
