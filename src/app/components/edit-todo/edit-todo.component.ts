@@ -94,7 +94,6 @@ updateSubscription?:Subscription;
 
     this.updateSubscription = this.todoService.updateTodos(this.Todo).subscribe(
      (todo)=>{
-      console.log(todo)
         this.todoService.todoBehavior.next(todo)
       }
     ); //post updated todo
