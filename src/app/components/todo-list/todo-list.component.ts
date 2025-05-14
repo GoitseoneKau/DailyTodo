@@ -186,13 +186,13 @@ export class TodoListComponent implements OnInit,OnDestroy {
 
   addTodo(){
     //navigate to the add todo form page
-    this.router.navigate(["/add",this.user.userId])
+    this.router.navigate(["add",this.user.userId])
   }
 
 
   editTodo(todo:Todo){
     //navigate to the edit todo form page
-    this.router.navigate(["/edit",todo.id])
+    this.router.navigate(["edit",todo.id])
   }
 
 
