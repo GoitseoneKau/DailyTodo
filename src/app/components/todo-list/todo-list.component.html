@@ -28,6 +28,7 @@
             <option value="All" selected>All</option>
             <option value="true">complete</option>
             <option value="false">Incomplete</option>
+            <option value="overdue">Overdue</option>
           </select>
         </div>
       </div>
@@ -114,6 +115,9 @@
 
 
     </ng-container>
+
+    <!-- scrollup button -->
+     <button *ngIf="showScrollButton" class="btnScrollUp" (click)="scrollToTop()"><i class="fa fa-arrow-up fa-xl"></i></button>
 
      <!-- sign up  loading spinner -->
      <ngx-spinner 

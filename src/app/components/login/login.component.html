@@ -24,18 +24,19 @@
         </div>
     
         <div class="form-group">
+            @let password = loginForm.get("password");
             <label for="password">Password :
-                <input  [class.ng-invalid]="loginForm.get('password')?.touched"
+                <input  [class.ng-invalid]="password?.touched"
                     type="password" id="password"  name="password"
                     formControlName="password" >
             </label>
-            <div class="alert" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-                <div *ngIf="loginForm.get('password')?.errors?.['required'] ">
+            <div class="alert" *ngIf="password?.touched && password?.invalid">
+                <div *ngIf="password?.errors?.['required'] ">
                   <small>  password is required</small>
                 </div>
             </div>
-            <div class="alert" *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.invalid">
-                <div *ngIf="loginForm.get('password')?.errors?.['invalidPassword'] ">
+            <div class="alert" *ngIf="(password?.dirty && password?.invalid) && !password?.errors?.['required']">
+                <div *ngIf="password?.errors?.['invalidPassword'] ">
                    <small>
                          Enter valid password, 
                         <br>should atleast have 1 UpperCase letter,1 Number and 
@@ -43,7 +44,7 @@
                         ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] 
                     </small>
                 </div>
-                <div *ngIf="loginForm.get('password')?.errors?.['minlength'] ">
+                <div *ngIf="password?.errors?.['minlength'] ">
                     <small>
                         password must be atleast 6 characters and at most 15 chaacters
                     </small>  

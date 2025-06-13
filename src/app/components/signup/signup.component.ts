@@ -10,6 +10,7 @@ import { delay } from 'rxjs';
 import { User } from '../../types/user';
 import { LoaderService } from '../../services/loader.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoginService } from '../../services/login.service';
 
 
 
@@ -35,6 +36,7 @@ signedUp:boolean = false
     private router:Router,
     private fb:FormBuilder,
     private userService:UsersService,
+    private loginService:LoginService,
     private loaderService:LoaderService
   ){//Injected services
     //assiging formcontrols/variables via a form builder class
@@ -57,6 +59,8 @@ signedUp:boolean = false
           ]), 
           password:new FormControl("",[
             Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(15),
             PasswordValidator.passwordValidator()//custom password validator
           ]),
           vpassword:new FormControl("",[
@@ -69,6 +73,11 @@ signedUp:boolean = false
   }
 
   ngOnInit(){
+     if(this.loginService.user){
+       if(this.router.url=="/signup" && this.loginService.isLoggedIn()){
+       this.router.navigate(["/todos",this.loginService.user.id])//navigate to user todos page
+    }
+    }
    //set users data whn component intializes
     this.userService.getUsers().subscribe(
       (data)=>{

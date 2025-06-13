@@ -36,6 +36,14 @@ export class LoginComponent {
   }
 
   ngOnInit(){
+
+    if(this.loginService.user){
+       if(this.router.url=="/" && this.loginService.isLoggedIn()){
+       this.router.navigate(["/todos",this.loginService.user.id])//navigate to user todos page
+    }
+    }
+    
+   
     this.UserService.getUsers().subscribe((data)=>{
       this.users = data
     })

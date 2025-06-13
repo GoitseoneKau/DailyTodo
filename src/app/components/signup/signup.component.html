@@ -81,19 +81,20 @@
         </div>
     
         <div class="form-group">
+            @let password = signupForm.get('password');
             <label for="password">Password :
-                <input  [class.ng-invalid]="signupForm.get('password')?.touched"
+                <input  [class.ng-invalid]="password?.touched"
                         type="password" id="password"  name="password"
                         formControlName="password" 
                 >
             </label>
-            <div class="alert" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
-                <div *ngIf="signupForm.get('password')?.errors?.['required'] ">
+            <div class="alert" *ngIf="password?.touched && password?.invalid">
+                <div *ngIf="password?.errors?.['required'] ">
                   <small>  password is required</small>
                 </div>
             </div>
-            <div class="alert" *ngIf="signupForm.get('password')?.dirty && signupForm.get('password')?.invalid">
-                <div *ngIf="signupForm.get('password')?.errors?.['invalidPassword']">
+            <div class="alert" *ngIf="(password?.dirty && password?.invalid) && !password?.errors?.['required']">
+                <div *ngIf="password?.errors?.['invalidPassword']">
                    <small>
                          Password, 
                         should atleast have 1 UpperCase,1 Number 
@@ -101,28 +102,34 @@
                         ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] 
                     </small>
                 </div>
-                <div *ngIf="signupForm.get('password')?.errors?.['minlength'] ">
+                <div *ngIf="password?.errors?.['minlength'] && !password?.errors?.['invalidPassword'] ">
                     <small>
                         password must be atleast 6 characters and at most 15 chaacters
+                    </small>  
+                </div>
+                <div *ngIf="password?.errors?.['maxlength'] && !password?.errors?.['invalidPassword'] ">
+                    <small>
+                        password must be at most 15 chaacters
                     </small>  
                 </div>
             </div>
         </div>
 
         <div class="form-group">
+            @let verifyPassword = signupForm.get('vpassword');
             <label for="vpassword">Verify Password :
-            <input  [class.ng-invalid]="signupForm.get('vpassword')?.touched"
+            <input  [class.ng-invalid]="verifyPassword?.touched"
                     type="password" id="vpassword"  name="vpassword"
                     formControlName="vpassword" 
             >
         </label>
-            <div class="alert" *ngIf="signupForm.get('vpassword')?.touched && signupForm.get('vpassword')?.invalid">
-                <div *ngIf="signupForm.get('vpassword')?.errors?.['required'] ">
-                  <small> password is required</small>
+            <div class="alert" *ngIf="verifyPassword?.touched && verifyPassword?.invalid">
+                <div *ngIf="verifyPassword?.errors?.['required'] ">
+                  <small>verify password is required</small>
                 </div>
             </div>
-            <div class="alert" *ngIf="signupForm.get('vpassword')?.dirty && signupForm.get('vpassword')?.invalid">
-                <div *ngIf="signupForm.get('vpassword')?.errors?.['invalidMatch']">
+            <div class="alert" *ngIf="(verifyPassword?.dirty && verifyPassword?.invalid) && !verifyPassword?.errors?.['required']">
+                <div *ngIf="verifyPassword?.errors?.['invalidMatch']">
                     <small>
                         Passwords dont match
                     </small>  

@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { booleanAttribute, Component, DestroyRef, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { TodoComponent } from '../todo/todo.component';
 import { TodosService } from '../../services/todos.service';
 import { Todo } from '../../types/todo';
@@ -19,6 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   selector: 'todo-list',
   standalone: true,
   imports: [TodoComponent,FormsModule,CommonModule,HeaderComponent,DatePipe,NgxSpinnerModule],
+  providers:[DatePipe],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
 })
@@ -41,8 +42,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
   bdcolor: string="";
   ani_color: string="";
   loadingMessage: string="";
-
-
+//scroll vars
+  showScrollButton = false;
+  private scrollThreshold = 200;
 
   constructor(
     private todoService:TodosService,
@@ -50,8 +52,21 @@ export class TodoListComponent implements OnInit,OnDestroy {
     private router:Router,
     private loginService:LoginService,
     private activatedRoute:ActivatedRoute,
-    private loaderService:LoaderService
+    private loaderService:LoaderService,
+    private dp:DatePipe
   ){ }//inject services 
+
+
+  // scroll event
+   @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.showScrollButton = window.scrollY > this.scrollThreshold;
+  }
+
+  // scroll to top function
+  scrollToTop() {
+     window.scrollTo({top:0,left:0,behavior:'smooth'})
+  }
 
    ngOnInit(){
 
@@ -70,9 +85,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
     .subscribe({
      next: (data)=>{
       
-        //store updated filtered todos by user, sorted by dates in ascending order
+        //store updated filtered todos by user, sorted by dates in descending order
         this.Todos=data.filter(d=>d.userId===this.userId)
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+        .sort((a, b) => (a.dueDate > b.dueDate ? -1 : b.dueDate > a.dueDate ? 1 : 0))
 
         //store data for filtering,speeds up search
         this.filteredTodos = this.Todos
@@ -128,9 +143,9 @@ export class TodoListComponent implements OnInit,OnDestroy {
   }
 
   //get user according to userId
-  getUser(userId:number){
+  getUser(Id:number){
     if(this.userService){
-      const user = this.userService.getUser(userId).subscribe((user)=>{
+      const user = this.userService.getUser(Id).subscribe((user)=>{
         this.user=user
         this.userId =user.userId
       })
@@ -160,7 +175,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
     const deleteTodo =this.todoService.deleteTodo(todo).subscribe(()=>{
     this.Todos = this.filteredTodos
     .filter(t=>t.id !== todo.id)
-    .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+    .sort((a, b) => (a.dueDate > b.dueDate ? -1 : b.dueDate > a.dueDate ? 1 : 0))
 
     //store data for filtering,speeds up search
     this.filteredTodos = this.Todos
@@ -184,6 +199,16 @@ export class TodoListComponent implements OnInit,OnDestroy {
     this.router.navigate(["/edit",todo.id])
   }
 
+   overDueCheck(todo:Todo){//checks if todo was never completed and it is passed it's due date
+    //transform date objects with datepipe service
+    const now = this.dp.transform(this.todayDate)
+    const task = this.dp.transform(todo.dueDate)
+    if(new Date(now!)>new Date(task!) && todo.completed==false){
+      return true
+    }
+    return false
+  }
+
   //filter todos according to status
   updateStatus(e:string|boolean){
 
@@ -195,7 +220,7 @@ export class TodoListComponent implements OnInit,OnDestroy {
         //filter to all todos of user's ID
         this.Todos = todos
         .filter((t)=> t.userId === this.userId)
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+        .sort((a, b) => (a.dueDate > b.dueDate ? -1 : b.dueDate > a.dueDate ? 1 : 0))
 
         this.filteredTodos = this.Todos
         //update empty todos
@@ -203,13 +228,25 @@ export class TodoListComponent implements OnInit,OnDestroy {
       })
        
      
+    }else if(this.todoIsCompleteFilter === "overdue"){
+      this.todoService.getTodos().subscribe((todos)=>{
+            //filter to all todos of user's ID
+            this.Todos = todos
+            .filter((t)=>this.overDueCheck(t) && t.userId === this.userId)
+            .sort((a, b) => (a.dueDate > b.dueDate ? -1 : b.dueDate > a.dueDate ? 1 : 0))
+
+            this.filteredTodos = this.Todos
+            //update empty todos
+            this.checkEmptyTodosOnPage(this.Todos)
+      })
+        
     }else{   
       
       this.todoService.getTodos().subscribe((todos)=>{
         //filter to all todos of user's ID
         this.Todos = todos
         .filter((t)=>t.completed === booleanAttribute(this.todoIsCompleteFilter) && t.userId === this.userId)
-        .sort((a, b) => (a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0))
+        .sort((a, b) => (a.dueDate > b.dueDate ? -1 : b.dueDate > a.dueDate ? 1 : 0))
 
         this.filteredTodos = this.Todos
         //update empty todos

@@ -10,9 +10,11 @@ export class RouteGuardService implements CanActivate{
 
   constructor(private loginService:LoginService,private router:Router) { }
   canActivate():Observable<boolean>|Promise<boolean>|boolean {
-    if (!this.loginService.isLoggedIn()) {
+  
+    if (this.loginService.isLoggedIn()==false) {
       this.router.navigate(["/"],{replaceUrl:true})
     }
+
     return true;
   }
 }
