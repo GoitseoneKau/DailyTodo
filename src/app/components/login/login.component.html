@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="alert" *ngIf="(password?.dirty && password?.invalid) && !password?.errors?.['required']">
-                <div *ngIf="password?.errors?.['invalidPassword'] ">
+                <div *ngIf="password?.errors?.['invalidPassword']">
                    <small>
                          Enter valid password, 
                         <br>should atleast have 1 UpperCase letter,1 Number and 
@@ -44,7 +44,7 @@
                         ["&#64;", "$", ".","#", "!", "%", "*", "?", "&", "^"] 
                     </small>
                 </div>
-                <div *ngIf="password?.errors?.['minlength'] ">
+                <div *ngIf="password?.errors?.['minlength'] && !password?.errors?.['invalidPassword']">
                     <small>
                         password must be atleast 6 characters and at most 15 chaacters
                     </small>  
